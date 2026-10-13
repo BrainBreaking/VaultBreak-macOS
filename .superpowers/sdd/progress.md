@@ -7,3 +7,4 @@
 | 8 | DONE | `4267f16` — Menu bar signed-in/out from Keychain session |
 | 9 | DONE | secrets list/get APIClient + tests; URL handler at startup (`feat(api)` on main) |
 | 10 | DONE | popover search/copy + 30s clipboard clear (`feat(tray)`) |
+| 11 | DONE | UI vault lock + LocalAuthentication (`feat(lock)`) |

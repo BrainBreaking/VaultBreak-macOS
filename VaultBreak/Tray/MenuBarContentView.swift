@@ -3,10 +3,12 @@ import SwiftUI
 
 struct MenuBarContentView: View {
     @ObservedObject var model: AppSessionModel
+    @ObservedObject var lockState: VaultLockState
     @StateObject private var popoverViewModel: PopoverSecretsViewModel
 
-    init(model: AppSessionModel) {
+    init(model: AppSessionModel, lockState: VaultLockState) {
         self.model = model
+        self.lockState = lockState
         _popoverViewModel = StateObject(wrappedValue: PopoverSecretsViewModel(sessionModel: model))
     }
 
@@ -20,7 +22,21 @@ struct MenuBarContentView: View {
                         .padding(.horizontal, 12)
                         .padding(.top, 8)
                 }
-                PopoverView(viewModel: popoverViewModel)
+                PopoverView(viewModel: popoverViewModel, lockState: lockState)
+                Divider()
+                if lockState.isLocked {
+                    Button("Unlock Vault…") {
+                        Task { await lockState.unlock() }
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                } else {
+                    Button("Lock Vault") {
+                        lockState.lock()
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                }
             } else {
                 Text("Not signed in — run vaultbreak login")
                     .padding(12)
@@ -34,6 +50,11 @@ struct MenuBarContentView: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .frame(width: 320)
+        .onChange(of: model.isSignedIn) { signedIn in
+            if !signedIn {
+                lockState.lock()
+            }
+        }
     }
 }
 
