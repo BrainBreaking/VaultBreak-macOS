@@ -23,6 +23,23 @@ final class AppSessionModel: ObservableObject {
     init(store: KeychainSessionStore = KeychainSessionStore()) {
         self.store = store
         reload()
+        ApplicationURLHandler.onOpenURL = { [weak self] url in
+            Task { @MainActor in
+                self?.handleOpenURL(url)
+            }
+        }
+    }
+
+    /// Builds an API client from the current Keychain session. On 401/403 the client clears Keychain and signs out.
+    func makeAPIClient(urlSession: URLSession = .shared) throws -> APIClient {
+        guard let session else {
+            throw APIClientError.unauthorized
+        }
+        return try APIClient(session: session, urlSession: urlSession) { [weak self] in
+            Task { @MainActor in
+                self?.clearSession()
+            }
+        }
     }
 
     func reload() {

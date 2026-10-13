@@ -9,11 +9,6 @@ struct VaultBreakApp: App {
     var body: some Scene {
         MenuBarExtra {
             MenuBarContentView(model: sessionModel)
-                .onAppear {
-                    ApplicationURLHandler.onOpenURL = { url in
-                        sessionModel.handleOpenURL(url)
-                    }
-                }
                 .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
                     sessionModel.reload()
                 }

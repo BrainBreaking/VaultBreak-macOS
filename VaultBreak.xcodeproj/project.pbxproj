@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */; };
+		13EC8E30D9308236FA0595FF /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484CEB3E0382BFA96B5A1F8C /* APIClient.swift */; };
 		1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */; };
 		29D61C1057BE53B71DA5E028 /* AppSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020EB5A45B3ADF800E6A869E /* AppSessionModel.swift */; };
 		2FD0637034C8335BC7F5456E /* AppSessionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */; };
 		3055D2386FF2F63CE2131442 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC56CEA65EF571EAE6CA8 /* Session.swift */; };
+		3803CC1776CB5B443EE50090 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */; };
 		38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */; };
 		64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */; };
 		76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */; };
+		C16020EBAFF9258A8AC3446B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF11F19B564E71F964752DC3 /* Models.swift */; };
 		F37E73CB51BAA7369128714D /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D06A53FEE89631E4C85B7D /* MenuBarContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,12 +38,15 @@
 		248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCodecTests.swift; sourceTree = "<group>"; };
 		2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStore.swift; sourceTree = "<group>"; };
 		413DC56CEA65EF571EAE6CA8 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		484CEB3E0382BFA96B5A1F8C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakApp.swift; sourceTree = "<group>"; };
 		752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionModelTests.swift; sourceTree = "<group>"; };
 		8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakAppDelegate.swift; sourceTree = "<group>"; };
 		8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStoreTests.swift; sourceTree = "<group>"; };
 		ACAB0EC61472FFAF9D81C1C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AF11F19B564E71F964752DC3 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E0B93452B9C886CC8D0271F7 /* VaultBreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VaultBreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -55,6 +61,7 @@
 		8681A112BB564974D7000ECF /* VaultBreakTests */ = {
 			isa = PBXGroup;
 			children = (
+				ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */,
 				752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */,
 				8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */,
 				248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */,
@@ -69,6 +76,15 @@
 				152A9461F827B590D66D6FBE /* VaultBreakTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AFB6631BBF9410F6C42B0AE6 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				484CEB3E0382BFA96B5A1F8C /* APIClient.swift */,
+				AF11F19B564E71F964752DC3 /* Models.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		B35A2EE080D589E18C282C74 /* Session */ = {
@@ -86,6 +102,7 @@
 			children = (
 				ACAB0EC61472FFAF9D81C1C2 /* Info.plist */,
 				701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */,
+				AFB6631BBF9410F6C42B0AE6 /* API */,
 				DF7BA2D4919FDB2E7E6872E2 /* Application */,
 				B35A2EE080D589E18C282C74 /* Session */,
 				094294C8AC58C309BC124812 /* Tray */,
@@ -184,9 +201,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13EC8E30D9308236FA0595FF /* APIClient.swift in Sources */,
 				29D61C1057BE53B71DA5E028 /* AppSessionModel.swift in Sources */,
 				10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */,
 				F37E73CB51BAA7369128714D /* MenuBarContentView.swift in Sources */,
+				C16020EBAFF9258A8AC3446B /* Models.swift in Sources */,
 				3055D2386FF2F63CE2131442 /* Session.swift in Sources */,
 				1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */,
 				38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */,
@@ -197,6 +216,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3803CC1776CB5B443EE50090 /* APIClientTests.swift in Sources */,
 				2FD0637034C8335BC7F5456E /* AppSessionModelTests.swift in Sources */,
 				64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */,
 				76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */,
