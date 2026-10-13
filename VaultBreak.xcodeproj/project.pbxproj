@@ -7,22 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */; };
 		1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */; };
+		3055D2386FF2F63CE2131442 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC56CEA65EF571EAE6CA8 /* Session.swift */; };
+		64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */; };
+		76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F7D64A72AE6059D4A7929123 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 69359044EC4CB15B3CDF6D83 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7775D948655184D9991A5923;
+			remoteInfo = VaultBreak;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		152A9461F827B590D66D6FBE /* VaultBreakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaultBreakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCodecTests.swift; sourceTree = "<group>"; };
+		2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStore.swift; sourceTree = "<group>"; };
+		413DC56CEA65EF571EAE6CA8 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakApp.swift; sourceTree = "<group>"; };
+		8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStoreTests.swift; sourceTree = "<group>"; };
 		ACAB0EC61472FFAF9D81C1C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E0B93452B9C886CC8D0271F7 /* VaultBreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VaultBreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		8681A112BB564974D7000ECF /* VaultBreakTests */ = {
+			isa = PBXGroup;
+			children = (
+				8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */,
+				248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */,
+			);
+			path = VaultBreakTests;
+			sourceTree = "<group>";
+		};
 		92D8E04DC1855DAA4A99BFA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				E0B93452B9C886CC8D0271F7 /* VaultBreak.app */,
+				152A9461F827B590D66D6FBE /* VaultBreakTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B35A2EE080D589E18C282C74 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */,
+				413DC56CEA65EF571EAE6CA8 /* Session.swift */,
+			);
+			path = Session;
 			sourceTree = "<group>";
 		};
 		C15F01C9A9D7C247A3AA3356 /* VaultBreak */ = {
@@ -30,6 +68,7 @@
 			children = (
 				ACAB0EC61472FFAF9D81C1C2 /* Info.plist */,
 				701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */,
+				B35A2EE080D589E18C282C74 /* Session */,
 			);
 			path = VaultBreak;
 			sourceTree = "<group>";
@@ -38,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				C15F01C9A9D7C247A3AA3356 /* VaultBreak */,
+				8681A112BB564974D7000ECF /* VaultBreakTests */,
 				92D8E04DC1855DAA4A99BFA8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +85,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		185E4B68D14EDD93853BA79F /* VaultBreakTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4868B30A4EACE7D017534D43 /* Build configuration list for PBXNativeTarget "VaultBreakTests" */;
+			buildPhases = (
+				537DBC290B0B92DA69058636 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				81F064B89B5AD0C0AA48EFF1 /* PBXTargetDependency */,
+			);
+			name = VaultBreakTests;
+			packageProductDependencies = (
+			);
+			productName = VaultBreakTests;
+			productReference = 152A9461F827B590D66D6FBE /* VaultBreakTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7775D948655184D9991A5923 /* VaultBreak */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E14B830510C4AB07EBA093AF /* Build configuration list for PBXNativeTarget "VaultBreak" */;
@@ -88,6 +146,7 @@
 			projectRoot = "";
 			targets = (
 				7775D948655184D9991A5923 /* VaultBreak */,
+				185E4B68D14EDD93853BA79F /* VaultBreakTests */,
 			);
 		};
 /* End PBXProject section */
@@ -97,13 +156,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */,
+				3055D2386FF2F63CE2131442 /* Session.swift in Sources */,
 				1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		537DBC290B0B92DA69058636 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */,
+				76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		81F064B89B5AD0C0AA48EFF1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7775D948655184D9991A5923 /* VaultBreak */;
+			targetProxy = F7D64A72AE6059D4A7929123 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		4164BA7E630DF900A57A617F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brainbreaking.vaultbreak.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaultBreak.app/Contents/MacOS/VaultBreak";
+			};
+			name = Debug;
+		};
 		67CF93C3F2DDC08726A96F45 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -263,6 +358,23 @@
 			};
 			name = Release;
 		};
+		EB8AFA62D4730EBBBD6C7E99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brainbreaking.vaultbreak.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaultBreak.app/Contents/MacOS/VaultBreak";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -271,6 +383,15 @@
 			buildConfigurations = (
 				7799EFCAD6329E3FE57BB5E6 /* Debug */,
 				C4FA1DEE77BA3D2992304A99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4868B30A4EACE7D017534D43 /* Build configuration list for PBXNativeTarget "VaultBreakTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4164BA7E630DF900A57A617F /* Debug */,
+				EB8AFA62D4730EBBBD6C7E99 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
