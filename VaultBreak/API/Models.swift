@@ -47,6 +47,7 @@ enum APIClientError: Error, Equatable {
     case invalidSecretID
     case invalidHandoffID
     case unauthorized
+    case conflict
     case httpError(statusCode: Int, message: String?)
     case decodingFailed
 }

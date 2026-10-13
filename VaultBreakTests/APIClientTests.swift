@@ -294,6 +294,107 @@ final class APIClientTests: XCTestCase {
         XCTAssertEqual(handoff.status, "revoked")
     }
 
+    func testCreateSecret201() async throws {
+        let createJSON = """
+        {
+          "secret": {
+            "id": "sec-new",
+            "name": "new-key",
+            "createdAt": "2026-02-01T08:00:00Z",
+            "updatedAt": "2026-02-01T08:00:00Z"
+          }
+        }
+        """
+        MockSecretsURLProtocol.requestHandler = { request in
+            XCTAssertEqual(request.httpMethod, "POST")
+            XCTAssertEqual(request.url?.path, "/api/v1/secrets")
+            let bodyData = urlRequestBodyData(request)
+            let json = try XCTUnwrap(bodyData.flatMap { try JSONSerialization.jsonObject(with: $0) as? [String: String] })
+            XCTAssertEqual(json["name"], "new-key")
+            XCTAssertEqual(json["value"], "secret-value")
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 201,
+                httpVersion: nil,
+                headerFields: nil
+            )!
+            return (response, Data(createJSON.utf8))
+        }
+
+        let client = try APIClient(session: sampleSession(), urlSession: makeMockURLSession())
+        let meta = try await client.createSecret(name: "new-key", value: "secret-value")
+        XCTAssertEqual(meta.id, "sec-new")
+        XCTAssertEqual(meta.name, "new-key")
+    }
+
+    func testUpdateSecret200() async throws {
+        let updateJSON = """
+        {
+          "secret": {
+            "id": "sec-42",
+            "name": "api-key",
+            "createdAt": "2026-02-01T08:00:00Z",
+            "updatedAt": "2026-03-01T08:00:00Z"
+          }
+        }
+        """
+        MockSecretsURLProtocol.requestHandler = { request in
+            XCTAssertEqual(request.httpMethod, "PUT")
+            XCTAssertEqual(request.url?.path, "/api/v1/secrets/sec-42")
+            let bodyData = urlRequestBodyData(request)
+            let json = try XCTUnwrap(bodyData.flatMap { try JSONSerialization.jsonObject(with: $0) as? [String: String] })
+            XCTAssertEqual(json["value"], "rotated")
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 200,
+                httpVersion: nil,
+                headerFields: nil
+            )!
+            return (response, Data(updateJSON.utf8))
+        }
+
+        let client = try APIClient(session: sampleSession(), urlSession: makeMockURLSession())
+        let meta = try await client.updateSecret(id: "sec-42", value: "rotated")
+        XCTAssertEqual(meta.id, "sec-42")
+    }
+
+    func testDeleteSecret204() async throws {
+        MockSecretsURLProtocol.requestHandler = { request in
+            XCTAssertEqual(request.httpMethod, "DELETE")
+            XCTAssertEqual(request.url?.path, "/api/v1/secrets/sec-del")
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 204,
+                httpVersion: nil,
+                headerFields: nil
+            )!
+            return (response, Data())
+        }
+
+        let client = try APIClient(session: sampleSession(), urlSession: makeMockURLSession())
+        try await client.deleteSecret(id: "sec-del")
+    }
+
+    func testCreateSecret409Conflict() async throws {
+        MockSecretsURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 409,
+                httpVersion: nil,
+                headerFields: nil
+            )!
+            return (response, Data())
+        }
+
+        let client = try APIClient(session: sampleSession(), urlSession: makeMockURLSession())
+        do {
+            _ = try await client.createSecret(name: "dup", value: "x")
+            XCTFail("Expected conflict")
+        } catch let error as APIClientError {
+            XCTAssertEqual(error, .conflict)
+        }
+    }
+
     func testRevokeHandoffEmptyIDThrows() async throws {
         let client = try APIClient(session: sampleSession(), urlSession: makeMockURLSession())
         do {

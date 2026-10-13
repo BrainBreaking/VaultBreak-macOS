@@ -12,6 +12,28 @@ private struct MockSecretsAPIClient: SecretsAPIClient {
     func getSecret(id: String) async throws -> SecretWithValue {
         try getResult.get()
     }
+
+    func createSecret(name: String, value: String) async throws -> SecretMetadata {
+        SecretMetadata(
+            id: UUID().uuidString,
+            name: name,
+            labels: nil,
+            createdAt: Date(timeIntervalSince1970: 1_700_000_000),
+            updatedAt: Date(timeIntervalSince1970: 1_700_000_000)
+        )
+    }
+
+    func updateSecret(id: String, value: String) async throws -> SecretMetadata {
+        SecretMetadata(
+            id: id,
+            name: "updated",
+            labels: nil,
+            createdAt: Date(timeIntervalSince1970: 1_700_000_000),
+            updatedAt: Date(timeIntervalSince1970: 1_700_000_000)
+        )
+    }
+
+    func deleteSecret(id: String) async throws {}
 }
 
 private final class MockPasteboard: PasteboardProviding {

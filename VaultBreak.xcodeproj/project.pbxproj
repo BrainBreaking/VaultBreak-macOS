@@ -29,6 +29,9 @@
 		F37E73CB51BAA7369128714D /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D06A53FEE89631E4C85B7D /* MenuBarContentView.swift */; };
 		A8F3C2D1E4B5678901234ABC /* HandoffAttention.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E4D3C2F5A6789012345ABCD /* HandoffAttention.swift */; };
 		C1D2E3F4A5B678901234567DE /* HandoffAttentionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E3F4A5B6C789012345678EF /* HandoffAttentionTests.swift */; };
+		B13A0010012345678901234AB /* MiniConsoleWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0010012345678901234AB /* MiniConsoleWindow.swift */; };
+		B13A0011012345678901234AB /* SecretsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0011012345678901234AB /* SecretsListView.swift */; };
+		B13A0012012345678901234AB /* ConsoleSecretsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,9 +70,22 @@
 		ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		B9E4D3C2F5A6789012345ABCD /* HandoffAttention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffAttention.swift; sourceTree = "<group>"; };
 		D2E3F4A5B6C789012345678EF /* HandoffAttentionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffAttentionTests.swift; sourceTree = "<group>"; };
+		F13A0010012345678901234AB /* MiniConsoleWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleWindow.swift; sourceTree = "<group>"; };
+		F13A0011012345678901234AB /* SecretsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsListView.swift; sourceTree = "<group>"; };
+		F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleSecretsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		G13A0010012345678901234AB /* Console */ = {
+			isa = PBXGroup;
+			children = (
+				F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */,
+				F13A0010012345678901234AB /* MiniConsoleWindow.swift */,
+				F13A0011012345678901234AB /* SecretsListView.swift */,
+			);
+			path = Console;
+			sourceTree = "<group>";
+		};
 		094294C8AC58C309BC124812 /* Tray */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +164,7 @@
 				701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */,
 				AFB6631BBF9410F6C42B0AE6 /* API */,
 				DF7BA2D4919FDB2E7E6872E2 /* Application */,
+				G13A0010012345678901234AB /* Console */,
 				2E55140DCBB7EB1F735ECB14 /* Lock */,
 				B35A2EE080D589E18C282C74 /* Session */,
 				42F1A434DADF7326AFDD135F /* Support */,
@@ -249,14 +266,17 @@
 			files = (
 				13EC8E30D9308236FA0595FF /* APIClient.swift in Sources */,
 				29D61C1057BE53B71DA5E028 /* AppSessionModel.swift in Sources */,
+				B13A0012012345678901234AB /* ConsoleSecretsViewModel.swift in Sources */,
 				701828197AF19C87EAD6CF94 /* Clipboard.swift in Sources */,
 				10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */,
+				B13A0010012345678901234AB /* MiniConsoleWindow.swift in Sources */,
 				F37E73CB51BAA7369128714D /* MenuBarContentView.swift in Sources */,
 				A8F3C2D1E4B5678901234ABC /* HandoffAttention.swift in Sources */,
 				C16020EBAFF9258A8AC3446B /* Models.swift in Sources */,
 				A676F231C1E61E767528AEE2 /* PopoverSecretsViewModel.swift in Sources */,
 				48533A3353CE23C85B2C22E2 /* PopoverView.swift in Sources */,
 				3294EA4811A3466BD875B938 /* SecretsAPIClient.swift in Sources */,
+				B13A0011012345678901234AB /* SecretsListView.swift in Sources */,
 				3055D2386FF2F63CE2131442 /* Session.swift in Sources */,
 				1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */,
 				38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */,

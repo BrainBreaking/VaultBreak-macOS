@@ -67,6 +67,36 @@ struct APIClient: Sendable {
         }
     }
 
+    func createSecret(name: String, value: String) async throws -> SecretMetadata {
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else {
+            throw APIClientError.httpError(statusCode: -1, message: "name required")
+        }
+        let body = try JSONSerialization.data(withJSONObject: ["name": trimmedName, "value": value])
+        let data = try await performPOST(path: "/api/v1/secrets", body: body)
+        return try Self.decodeSecretEnvelope(from: data)
+    }
+
+    func updateSecret(id: String, value: String) async throws -> SecretMetadata {
+        let trimmed = id.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            throw APIClientError.invalidSecretID
+        }
+        let path = "/api/v1/secrets/\(Self.pathEscaped(trimmed))"
+        let body = try JSONSerialization.data(withJSONObject: ["value": value])
+        let data = try await performPUT(path: path, body: body)
+        return try Self.decodeSecretEnvelope(from: data)
+    }
+
+    func deleteSecret(id: String) async throws {
+        let trimmed = id.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            throw APIClientError.invalidSecretID
+        }
+        let path = "/api/v1/secrets/\(Self.pathEscaped(trimmed))"
+        try await performDELETE(path: path)
+    }
+
     func listHandoffs() async throws -> [Handoff] {
         let data = try await performGET(path: "/api/v1/handoffs")
         let decoder = Self.makeJSONDecoder()
@@ -106,6 +136,10 @@ struct APIClient: Sendable {
         let value: String
     }
 
+    private struct SecretEnvelopeResponse: Decodable {
+        let secret: SecretMetadata
+    }
+
     private struct ListHandoffsResponse: Decodable {
         let handoffs: [Handoff]
     }
@@ -122,7 +156,30 @@ struct APIClient: Sendable {
         try await performRequest(method: "POST", path: path, body: body)
     }
 
-    private func performRequest(method: String, path: String, body: Data?) async throws -> Data {
+    private func performPUT(path: String, body: Data) async throws -> Data {
+        try await performRequest(method: "PUT", path: path, body: body)
+    }
+
+    private func performDELETE(path: String) async throws {
+        _ = try await performRequest(method: "DELETE", path: path, body: nil, allowEmptyBody: true)
+    }
+
+    private static func decodeSecretEnvelope(from data: Data) throws -> SecretMetadata {
+        let decoder = makeJSONDecoder()
+        do {
+            let response = try decoder.decode(SecretEnvelopeResponse.self, from: data)
+            return response.secret
+        } catch {
+            throw APIClientError.decodingFailed
+        }
+    }
+
+    private func performRequest(
+        method: String,
+        path: String,
+        body: Data?,
+        allowEmptyBody: Bool = false
+    ) async throws -> Data {
         let url = try Self.endpointURL(base: credentials.baseURL, path: path)
         var request = URLRequest(url: url)
         request.httpMethod = method
@@ -145,9 +202,15 @@ struct APIClient: Sendable {
 
         guard (200 ... 299).contains(http.statusCode) else {
             let message = Self.parseErrorMessage(from: data)
+            if http.statusCode == 409 {
+                throw APIClientError.conflict
+            }
             throw APIClientError.httpError(statusCode: http.statusCode, message: message)
         }
 
+        if allowEmptyBody, data.isEmpty {
+            return Data()
+        }
         return data
     }
 

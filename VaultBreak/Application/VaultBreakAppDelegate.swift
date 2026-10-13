@@ -6,6 +6,10 @@ enum ApplicationURLHandler {
 }
 
 final class VaultBreakAppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        NSApp.setActivationPolicy(.accessory)
+    }
+
     func application(_ application: NSApplication, open urls: [URL]) {
         for url in urls {
             Task { @MainActor in

@@ -28,6 +28,11 @@ struct MenuBarContentView: View {
                 }
                 PopoverView(viewModel: popoverViewModel, lockState: lockState, handoffModel: handoffModel)
                 Divider()
+                Button("Open Vault…") {
+                    MiniConsolePresenter.open(sessionModel: model, lockState: lockState)
+                }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
                 if lockState.isLocked {
                     Button("Unlock Vault…") {
                         Task { await lockState.unlock() }
