@@ -1,0 +1,25 @@
+name: VaultBreak
+options:
+  bundleIdPrefix: com.brainbreaking
+  deploymentTarget:
+    macOS: "13.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MACOSX_DEPLOYMENT_TARGET: "13.0"
+    GENERATE_INFOPLIST_FILE: YES
+targets:
+  VaultBreak:
+    type: application
+    platform: macOS
+    sources:
+      - VaultBreak
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.brainbreaking.vaultbreak
+        PRODUCT_NAME: VaultBreak
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_FILE: VaultBreak/Info.plist
+        INFOPLIST_KEY_LSUIElement: YES
+        INFOPLIST_KEY_CFBundleDisplayName: VaultBreak
