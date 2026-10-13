@@ -48,6 +48,17 @@ final class PopoverSecretsViewModel: ObservableObject {
         }
     }
 
+    func clearLoadedSecrets() {
+        copiedIndicatorTask?.cancel()
+        copiedIndicatorTask = nil
+        secrets = []
+        searchText = ""
+        loadError = nil
+        copyError = nil
+        copiedSecretID = nil
+        isLoading = false
+    }
+
     func copySecret(id: String) async {
         copyError = nil
         copiedIndicatorTask?.cancel()

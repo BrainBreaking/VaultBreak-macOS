@@ -3,9 +3,11 @@ import SwiftUI
 struct PopoverView: View {
     @ObservedObject var viewModel: PopoverSecretsViewModel
     @ObservedObject var lockState: VaultLockState
+    @ObservedObject var handoffModel: HandoffAttentionModel
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
+            handoffsSection
             if lockState.isLocked {
                 lockedContent
             } else {
@@ -17,6 +19,47 @@ struct PopoverView: View {
             guard !lockState.isLocked else { return }
             await viewModel.loadSecrets()
         }
+    }
+
+    @ViewBuilder
+    private var handoffsSection: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text("Pending handoffs")
+                    .font(.headline)
+                Spacer()
+                Button("Open") {
+                    handoffModel.openHandoffsInBrowser()
+                }
+            }
+            if let error = handoffModel.lastError {
+                Text(error)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+            }
+            if handoffModel.pendingHandoffs.isEmpty {
+                Text("No pending handoffs")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(handoffModel.pendingHandoffs) { handoff in
+                    HStack(alignment: .top, spacing: 8) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(handoff.title)
+                                .lineLimit(2)
+                            Text(handoff.status)
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer(minLength: 4)
+                        Button("Revoke") {
+                            Task { await handoffModel.revokeHandoff(id: handoff.id) }
+                        }
+                    }
+                }
+            }
+        }
+        Divider()
     }
 
     @ViewBuilder

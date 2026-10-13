@@ -7,3 +7,11 @@ protocol SecretsAPIClient: Sendable {
 }
 
 extension APIClient: SecretsAPIClient {}
+
+/// Test seam for handoff list/revoke operations.
+protocol HandoffsAPIClient: Sendable {
+    func listHandoffs() async throws -> [Handoff]
+    func revokeHandoff(id: String) async throws -> Handoff
+}
+
+extension APIClient: HandoffsAPIClient {}

@@ -98,4 +98,21 @@ final class PopoverSecretsViewModelTests: XCTestCase {
         XCTAssertTrue(vm.secrets.isEmpty)
         XCTAssertEqual(vm.loadError, "Session expired — sign in again")
     }
+
+    func testClearLoadedSecretsClearsNames() async {
+        let meta = metadata(name: "Sensitive", id: "s1")
+        let client = MockSecretsAPIClient(listResult: .success([meta]))
+        let vm = PopoverSecretsViewModel(
+            clientFactory: { client },
+            clipboard: ClipboardClearService(pasteboard: MockPasteboard(), scheduler: MockClipboardScheduler())
+        )
+        await vm.loadSecrets()
+        XCTAssertEqual(vm.secrets.count, 1)
+
+        vm.clearLoadedSecrets()
+
+        XCTAssertTrue(vm.secrets.isEmpty)
+        XCTAssertTrue(vm.searchText.isEmpty)
+        XCTAssertNil(vm.loadError)
+    }
 }
