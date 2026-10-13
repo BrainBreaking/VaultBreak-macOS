@@ -32,7 +32,7 @@ Added operator documentation for Developer ID signing, notarization, stapling, a
 ## Commits
 | Repo | SHA | Message |
 |------|-----|---------|
-| VaultBreak-macOS | `c7eaf15db44221464e7d232f73212a04886679bf` | docs: signing and notarization guide |
+| VaultBreak-macOS | `641aeb71f810fb10893c34017aa196e0b3532892` | docs: signing and notarization guide |
 | vaultbreak-cli (worktree) | `b8bee10c74775fd93b48a89aba73dbd9dac0bdad` | chore(cli): point app download URL at VaultBreak-macOS releases |
 | VaultBreak | `730be6226dc60e133a06b50af8b8e592423de2c8` | docs: PROJECT_MEMORY macOS companion P0-P4 status |
 
