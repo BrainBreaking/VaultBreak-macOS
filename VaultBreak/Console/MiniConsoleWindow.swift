@@ -20,16 +20,25 @@ enum MiniConsolePresenter {
 final class MiniConsoleWindowController: NSWindowController, NSWindowDelegate {
     private let sessionModel: AppSessionModel
     private let lockState: VaultLockState
-    private let viewModel: ConsoleSecretsViewModel
+    private let secretsViewModel: ConsoleSecretsViewModel
+    private let handoffsViewModel: ConsoleHandoffsViewModel
 
     init(sessionModel: AppSessionModel, lockState: VaultLockState) {
         self.sessionModel = sessionModel
         self.lockState = lockState
-        self.viewModel = ConsoleSecretsViewModel {
+        self.secretsViewModel = ConsoleSecretsViewModel {
+            try? sessionModel.makeAPIClient()
+        }
+        self.handoffsViewModel = ConsoleHandoffsViewModel {
             try? sessionModel.makeAPIClient()
         }
 
-        let root = SecretsListView(viewModel: viewModel, lockState: lockState)
+        let root = MiniConsoleContentView(
+            sessionModel: sessionModel,
+            lockState: lockState,
+            secretsViewModel: secretsViewModel,
+            handoffsViewModel: handoffsViewModel
+        )
         let hosting = NSHostingController(rootView: root)
         let window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 560, height: 420),

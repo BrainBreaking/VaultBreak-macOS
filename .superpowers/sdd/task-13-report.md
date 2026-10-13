@@ -23,4 +23,5 @@
 | Tests | `APIClientTests.swift`, `PopoverSecretsViewModelTests.swift` |
 
 ## Commit
-Message: `feat(console): mini vault window with secrets CRUD`
+- SHA: `b4e107a`
+- Message: `feat(console): mini vault window with secrets CRUD`

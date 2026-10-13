@@ -32,6 +32,11 @@
 		B13A0010012345678901234AB /* MiniConsoleWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0010012345678901234AB /* MiniConsoleWindow.swift */; };
 		B13A0011012345678901234AB /* SecretsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0011012345678901234AB /* SecretsListView.swift */; };
 		B13A0012012345678901234AB /* ConsoleSecretsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */; };
+		B13A0014012345678901234AB /* SessionDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0014012345678901234AB /* SessionDisplay.swift */; };
+		B13A0015012345678901234AB /* MiniConsoleContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0015012345678901234AB /* MiniConsoleContentView.swift */; };
+		B13A0016012345678901234AB /* HandoffsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0016012345678901234AB /* HandoffsListView.swift */; };
+		B13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift */; };
+		B13A0018012345678901234AB /* SessionDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0018012345678901234AB /* SessionDisplayTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,13 +78,21 @@
 		F13A0010012345678901234AB /* MiniConsoleWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleWindow.swift; sourceTree = "<group>"; };
 		F13A0011012345678901234AB /* SecretsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsListView.swift; sourceTree = "<group>"; };
 		F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleSecretsViewModel.swift; sourceTree = "<group>"; };
+		F13A0014012345678901234AB /* SessionDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDisplay.swift; sourceTree = "<group>"; };
+		F13A0015012345678901234AB /* MiniConsoleContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleContentView.swift; sourceTree = "<group>"; };
+		F13A0016012345678901234AB /* HandoffsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffsListView.swift; sourceTree = "<group>"; };
+		F13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleHandoffsViewModel.swift; sourceTree = "<group>"; };
+		F13A0018012345678901234AB /* SessionDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDisplayTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		G13A0010012345678901234AB /* Console */ = {
 			isa = PBXGroup;
 			children = (
+				F13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift */,
 				F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */,
+				F13A0016012345678901234AB /* HandoffsListView.swift */,
+				F13A0015012345678901234AB /* MiniConsoleContentView.swift */,
 				F13A0010012345678901234AB /* MiniConsoleWindow.swift */,
 				F13A0011012345678901234AB /* SecretsListView.swift */,
 			);
@@ -123,6 +136,7 @@
 				8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */,
 				8AF9B6E04BDA29852C9E1AFD /* PopoverSecretsViewModelTests.swift */,
 				248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */,
+				F13A0018012345678901234AB /* SessionDisplayTests.swift */,
 				620661CFDB0E55988F7525DA /* VaultLockStateTests.swift */,
 			);
 			path = VaultBreakTests;
@@ -153,6 +167,7 @@
 				020EB5A45B3ADF800E6A869E /* AppSessionModel.swift */,
 				2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */,
 				413DC56CEA65EF571EAE6CA8 /* Session.swift */,
+				F13A0014012345678901234AB /* SessionDisplay.swift */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -267,6 +282,9 @@
 				13EC8E30D9308236FA0595FF /* APIClient.swift in Sources */,
 				29D61C1057BE53B71DA5E028 /* AppSessionModel.swift in Sources */,
 				B13A0012012345678901234AB /* ConsoleSecretsViewModel.swift in Sources */,
+				B13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift in Sources */,
+				B13A0016012345678901234AB /* HandoffsListView.swift in Sources */,
+				B13A0015012345678901234AB /* MiniConsoleContentView.swift in Sources */,
 				701828197AF19C87EAD6CF94 /* Clipboard.swift in Sources */,
 				10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */,
 				B13A0010012345678901234AB /* MiniConsoleWindow.swift in Sources */,
@@ -278,6 +296,7 @@
 				3294EA4811A3466BD875B938 /* SecretsAPIClient.swift in Sources */,
 				B13A0011012345678901234AB /* SecretsListView.swift in Sources */,
 				3055D2386FF2F63CE2131442 /* Session.swift in Sources */,
+				B13A0014012345678901234AB /* SessionDisplay.swift in Sources */,
 				1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */,
 				38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */,
 				80240FB00BC4C64018C88726 /* VaultLockState.swift in Sources */,
@@ -295,6 +314,7 @@
 				64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */,
 				03CA5AF2D0B6BE722B9471DD /* PopoverSecretsViewModelTests.swift in Sources */,
 				76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */,
+				B13A0018012345678901234AB /* SessionDisplayTests.swift in Sources */,
 				E6A20C625E74AC8577DD2F99 /* VaultLockStateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

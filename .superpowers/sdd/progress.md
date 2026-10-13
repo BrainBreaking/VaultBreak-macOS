@@ -9,4 +9,5 @@
 | 10 | DONE | popover search/copy + 30s clipboard clear (`feat(tray)`) |
 | 11 | DONE | UI vault lock + LocalAuthentication (`feat(lock)`) |
 | 12 | DONE | pending handoff attention + revoke/open (`feat(tray)`) — see task-12-report.md |
-| 13 | DONE | mini vault window secrets CRUD (`feat(console)`) — see task-13-report.md |
+| 13 | DONE | `b4e107a` — mini vault window secrets CRUD (`feat(console)`) — see task-13-report.md |
+| 14 | DONE | `bd086f3` — handoffs tab + status strip (`feat(console): handoffs tab and status strip`) — see task-14-report.md |
