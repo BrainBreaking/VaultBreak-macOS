@@ -11,4 +11,4 @@
 | 12 | DONE | pending handoff attention + revoke/open (`feat(tray)`) — see task-12-report.md |
 | 13 | DONE | `b4e107a` — mini vault window secrets CRUD (`feat(console)`) — see task-13-report.md |
 | 14 | DONE | `bd086f3` — handoffs tab + status strip (`feat(console): handoffs tab and status strip`) — see task-14-report.md |
-| 15 | DONE | login item + URL polish (`feat(app): login item and vaultbreak URL polish`) — see task-15-report.md; 55 tests |
+| 15 | DONE | `ecd82e2` — login item + URL polish (`feat(app): login item and vaultbreak URL polish`) — see task-15-report.md; 55 tests |
