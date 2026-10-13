@@ -1,27 +1,25 @@
+import AppKit
 import SwiftUI
 
 @main
 struct VaultBreakApp: App {
-    var body: some Scene {
-        MenuBarExtra("VaultBreak", systemImage: "lock.shield") {
-            MenuBarPlaceholderView()
-        }
-        .menuBarExtraStyle(.window)
-    }
-}
+    @NSApplicationDelegateAdaptor(VaultBreakAppDelegate.self) private var appDelegate
+    @StateObject private var sessionModel = AppSessionModel()
 
-private struct MenuBarPlaceholderView: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("VaultBreak")
-                .font(.headline)
-            Text("Signed out")
-                .foregroundStyle(.secondary)
-            Text("Run `vaultbreak login` in Terminal to connect.")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
+    var body: some Scene {
+        MenuBarExtra {
+            MenuBarContentView(model: sessionModel)
+                .onAppear {
+                    ApplicationURLHandler.onOpenURL = { url in
+                        sessionModel.handleOpenURL(url)
+                    }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+                    sessionModel.reload()
+                }
+        } label: {
+            MenuBarExtraLabel(model: sessionModel)
         }
-        .padding(12)
-        .frame(minWidth: 220)
+        .menuBarExtraStyle(.menu)
     }
 }

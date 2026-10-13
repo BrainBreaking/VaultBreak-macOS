@@ -65,10 +65,9 @@ final class KeychainSessionStoreTests: XCTestCase {
 
     func testSystemDataSourceUsesCLIKeychainQueryShape() {
         let source = SystemKeychainSessionDataSource(
-            service: KeychainSessionStore.service,
-            account: KeychainSessionStore.account
+            service: "com.brainbreaking.vaultbreak.test-query-shape",
+            account: "session-test-isolated"
         )
-        _ = source.deleteSessionData()
         XCTAssertNil(source.loadSessionData())
     }
 }
