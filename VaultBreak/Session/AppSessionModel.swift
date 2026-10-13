@@ -20,14 +20,12 @@ final class AppSessionModel: ObservableObject {
         return "Signed in"
     }
 
+    /// Opens the mini-console when `vaultbreak://open` is received (set by the app entry point).
+    var onOpenVault: (() -> Void)?
+
     init(store: KeychainSessionStore = KeychainSessionStore()) {
         self.store = store
         reload()
-        ApplicationURLHandler.onOpenURL = { [weak self] url in
-            Task { @MainActor in
-                self?.handleOpenURL(url)
-            }
-        }
     }
 
     /// Builds an API client from the current Keychain session. On 401/403 the client clears Keychain and signs out.
@@ -52,14 +50,12 @@ final class AppSessionModel: ObservableObject {
     }
 
     func handleOpenURL(_ url: URL) {
-        guard url.scheme?.lowercased() == "vaultbreak" else { return }
-
-        switch url.host?.lowercased() {
-        case "session-updated":
+        switch VaultBreakURLParser.action(for: url) {
+        case .sessionUpdated:
             reload()
-        case "open":
-            break
-        default:
+        case .open:
+            onOpenVault?()
+        case nil:
             break
         }
     }

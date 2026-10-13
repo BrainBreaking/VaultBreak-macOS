@@ -8,6 +8,9 @@ enum ApplicationURLHandler {
 final class VaultBreakAppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        Task { @MainActor in
+            LoginItemService.applyOnFirstLaunch()
+        }
     }
 
     func application(_ application: NSApplication, open urls: [URL]) {

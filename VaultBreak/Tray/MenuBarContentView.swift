@@ -52,6 +52,12 @@ struct MenuBarContentView: View {
                     .padding(12)
             }
             Divider()
+            Toggle("Open at Login", isOn: Binding(
+                get: { LoginItemService.isEnabled },
+                set: { LoginItemService.isEnabled = $0 }
+            ))
+            .padding(.horizontal, 12)
+            .padding(.vertical, 4)
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }

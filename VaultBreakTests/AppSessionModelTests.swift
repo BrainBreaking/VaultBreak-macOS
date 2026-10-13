@@ -118,13 +118,15 @@ final class AppSessionModelTests: XCTestCase {
         XCTAssertEqual(model.accountLabel, "fresh@example.com")
     }
 
-    func testHandleOpenURLOpenIsNoOpUntilM5() {
+    func testHandleOpenURLOpenInvokesCallback() {
         let mock = MockKeychainSessionDataSource()
         let model = AppSessionModel(store: KeychainSessionStore(dataSource: mock))
+        var openCount = 0
+        model.onOpenVault = { openCount += 1 }
 
         model.handleOpenURL(URL(string: "vaultbreak://open")!)
 
-        XCTAssertFalse(model.isSignedIn)
+        XCTAssertEqual(openCount, 1)
     }
 
     func testHandleOpenURLIgnoresUnknownHosts() {

@@ -9,34 +9,37 @@
 /* Begin PBXBuildFile section */
 		03CA5AF2D0B6BE722B9471DD /* PopoverSecretsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF9B6E04BDA29852C9E1AFD /* PopoverSecretsViewModelTests.swift */; };
 		10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */; };
+		12B88FF0D1266DB84354B5F7 /* HandoffsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDFB24E75C05C5E959E6F525 /* HandoffsListView.swift */; };
 		13EC8E30D9308236FA0595FF /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484CEB3E0382BFA96B5A1F8C /* APIClient.swift */; };
 		1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */; };
 		29D61C1057BE53B71DA5E028 /* AppSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020EB5A45B3ADF800E6A869E /* AppSessionModel.swift */; };
 		2FD0637034C8335BC7F5456E /* AppSessionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */; };
 		3055D2386FF2F63CE2131442 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC56CEA65EF571EAE6CA8 /* Session.swift */; };
 		3294EA4811A3466BD875B938 /* SecretsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46698070DC6691EB660E04C /* SecretsAPIClient.swift */; };
+		35793305FE1A6B48BF3837C4 /* SecretsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065D2AD6CAC196AAAFAB1E07 /* SecretsListView.swift */; };
 		3803CC1776CB5B443EE50090 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */; };
 		38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */; };
 		48533A3353CE23C85B2C22E2 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56E619B392A094EF0A320CA /* PopoverView.swift */; };
+		5A0B880E3A5EE764D3E76304 /* SessionDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C5226294E378976988ACEC /* SessionDisplay.swift */; };
 		64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */; };
+		653BED3B185B9AD60D205306 /* VaultBreakURLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9734949079C79DA912F893 /* VaultBreakURLParserTests.swift */; };
 		701828197AF19C87EAD6CF94 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F22ACDADF3E79D391A7CB6 /* Clipboard.swift */; };
 		76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */; };
 		80240FB00BC4C64018C88726 /* VaultLockState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DAB9CB23E797DC8E85073 /* VaultLockState.swift */; };
+		830735948930BBFB3F9A717A /* ConsoleSecretsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37068D0728ADF651C433A888 /* ConsoleSecretsViewModel.swift */; };
+		9ADB46AB6404385CD48A523E /* HandoffAttention.swift in Sources */ = {isa = PBXBuildFile; fileRef = E880967F6633C991F2888C57 /* HandoffAttention.swift */; };
 		A676F231C1E61E767528AEE2 /* PopoverSecretsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC43685CAE6686236C4739E8 /* PopoverSecretsViewModel.swift */; };
+		AAF8103488EB6C78B42D51CA /* LoginItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4452A471EE209C3B97D1DC57 /* LoginItemService.swift */; };
+		AC3D4CD63DAEC5358A9FA34C /* HandoffAttentionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0893AAA35B784A7AF24701 /* HandoffAttentionTests.swift */; };
 		C16020EBAFF9258A8AC3446B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF11F19B564E71F964752DC3 /* Models.swift */; };
+		C5CA068ABE837731B4D51108 /* MiniConsoleWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345ED106CD2F438EAD723729 /* MiniConsoleWindow.swift */; };
+		CC630FC708E6031A4C6D5131 /* ConsoleHandoffsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471241C59EEB2B40EB3A67CF /* ConsoleHandoffsViewModel.swift */; };
+		E351BAD9ED34C206CA04C479 /* VaultBreakURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24CE239EBC0C8C6A0B9D6DA5 /* VaultBreakURL.swift */; };
 		E6A20C625E74AC8577DD2F99 /* VaultLockStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620661CFDB0E55988F7525DA /* VaultLockStateTests.swift */; };
+		ED1BCDCFC914F532B6910F0F /* SessionDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40DAC8AF8752A10050D247BA /* SessionDisplayTests.swift */; };
 		F1932B9C3A5216D23F564F90 /* ClipboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489A7EBDDD56C89FE7EBBF9A /* ClipboardTests.swift */; };
 		F37E73CB51BAA7369128714D /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D06A53FEE89631E4C85B7D /* MenuBarContentView.swift */; };
-		A8F3C2D1E4B5678901234ABC /* HandoffAttention.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E4D3C2F5A6789012345ABCD /* HandoffAttention.swift */; };
-		C1D2E3F4A5B678901234567DE /* HandoffAttentionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E3F4A5B6C789012345678EF /* HandoffAttentionTests.swift */; };
-		B13A0010012345678901234AB /* MiniConsoleWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0010012345678901234AB /* MiniConsoleWindow.swift */; };
-		B13A0011012345678901234AB /* SecretsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0011012345678901234AB /* SecretsListView.swift */; };
-		B13A0012012345678901234AB /* ConsoleSecretsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */; };
-		B13A0014012345678901234AB /* SessionDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0014012345678901234AB /* SessionDisplay.swift */; };
-		B13A0015012345678901234AB /* MiniConsoleContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0015012345678901234AB /* MiniConsoleContentView.swift */; };
-		B13A0016012345678901234AB /* HandoffsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0016012345678901234AB /* HandoffsListView.swift */; };
-		B13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift */; };
-		B13A0018012345678901234AB /* SessionDisplayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13A0018012345678901234AB /* SessionDisplayTests.swift */; };
+		FF52134E08901EB82132B69A /* MiniConsoleContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BAA16D28F415A691538BE1 /* MiniConsoleContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,14 +54,25 @@
 
 /* Begin PBXFileReference section */
 		020EB5A45B3ADF800E6A869E /* AppSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionModel.swift; sourceTree = "<group>"; };
+		065D2AD6CAC196AAAFAB1E07 /* SecretsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsListView.swift; sourceTree = "<group>"; };
 		152A9461F827B590D66D6FBE /* VaultBreakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaultBreakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		19BAA16D28F415A691538BE1 /* MiniConsoleContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleContentView.swift; sourceTree = "<group>"; };
 		19D06A53FEE89631E4C85B7D /* MenuBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarContentView.swift; sourceTree = "<group>"; };
+		1A9734949079C79DA912F893 /* VaultBreakURLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakURLParserTests.swift; sourceTree = "<group>"; };
 		248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCodecTests.swift; sourceTree = "<group>"; };
+		24CE239EBC0C8C6A0B9D6DA5 /* VaultBreakURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakURL.swift; sourceTree = "<group>"; };
 		2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStore.swift; sourceTree = "<group>"; };
+		345ED106CD2F438EAD723729 /* MiniConsoleWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleWindow.swift; sourceTree = "<group>"; };
+		37068D0728ADF651C433A888 /* ConsoleSecretsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleSecretsViewModel.swift; sourceTree = "<group>"; };
+		40DAC8AF8752A10050D247BA /* SessionDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDisplayTests.swift; sourceTree = "<group>"; };
 		413DC56CEA65EF571EAE6CA8 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		4452A471EE209C3B97D1DC57 /* LoginItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemService.swift; sourceTree = "<group>"; };
+		471241C59EEB2B40EB3A67CF /* ConsoleHandoffsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleHandoffsViewModel.swift; sourceTree = "<group>"; };
 		484CEB3E0382BFA96B5A1F8C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		489A7EBDDD56C89FE7EBBF9A /* ClipboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardTests.swift; sourceTree = "<group>"; };
 		620661CFDB0E55988F7525DA /* VaultLockStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultLockStateTests.swift; sourceTree = "<group>"; };
+		69C5226294E378976988ACEC /* SessionDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDisplay.swift; sourceTree = "<group>"; };
+		6A0893AAA35B784A7AF24701 /* HandoffAttentionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffAttentionTests.swift; sourceTree = "<group>"; };
 		701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakApp.swift; sourceTree = "<group>"; };
 		752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionModelTests.swift; sourceTree = "<group>"; };
 		814DAB9CB23E797DC8E85073 /* VaultLockState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultLockState.swift; sourceTree = "<group>"; };
@@ -69,40 +83,19 @@
 		AF11F19B564E71F964752DC3 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		B3F22ACDADF3E79D391A7CB6 /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
 		CC43685CAE6686236C4739E8 /* PopoverSecretsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverSecretsViewModel.swift; sourceTree = "<group>"; };
+		DDFB24E75C05C5E959E6F525 /* HandoffsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffsListView.swift; sourceTree = "<group>"; };
 		E0B93452B9C886CC8D0271F7 /* VaultBreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VaultBreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E46698070DC6691EB660E04C /* SecretsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsAPIClient.swift; sourceTree = "<group>"; };
 		E56E619B392A094EF0A320CA /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
+		E880967F6633C991F2888C57 /* HandoffAttention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffAttention.swift; sourceTree = "<group>"; };
 		ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
-		B9E4D3C2F5A6789012345ABCD /* HandoffAttention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffAttention.swift; sourceTree = "<group>"; };
-		D2E3F4A5B6C789012345678EF /* HandoffAttentionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffAttentionTests.swift; sourceTree = "<group>"; };
-		F13A0010012345678901234AB /* MiniConsoleWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleWindow.swift; sourceTree = "<group>"; };
-		F13A0011012345678901234AB /* SecretsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsListView.swift; sourceTree = "<group>"; };
-		F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleSecretsViewModel.swift; sourceTree = "<group>"; };
-		F13A0014012345678901234AB /* SessionDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDisplay.swift; sourceTree = "<group>"; };
-		F13A0015012345678901234AB /* MiniConsoleContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleContentView.swift; sourceTree = "<group>"; };
-		F13A0016012345678901234AB /* HandoffsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffsListView.swift; sourceTree = "<group>"; };
-		F13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleHandoffsViewModel.swift; sourceTree = "<group>"; };
-		F13A0018012345678901234AB /* SessionDisplayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDisplayTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		G13A0010012345678901234AB /* Console */ = {
-			isa = PBXGroup;
-			children = (
-				F13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift */,
-				F13A0012012345678901234AB /* ConsoleSecretsViewModel.swift */,
-				F13A0016012345678901234AB /* HandoffsListView.swift */,
-				F13A0015012345678901234AB /* MiniConsoleContentView.swift */,
-				F13A0010012345678901234AB /* MiniConsoleWindow.swift */,
-				F13A0011012345678901234AB /* SecretsListView.swift */,
-			);
-			path = Console;
-			sourceTree = "<group>";
-		};
 		094294C8AC58C309BC124812 /* Tray */ = {
 			isa = PBXGroup;
 			children = (
-				B9E4D3C2F5A6789012345ABCD /* HandoffAttention.swift */,
+				E880967F6633C991F2888C57 /* HandoffAttention.swift */,
 				19D06A53FEE89631E4C85B7D /* MenuBarContentView.swift */,
 				CC43685CAE6686236C4739E8 /* PopoverSecretsViewModel.swift */,
 				E56E619B392A094EF0A320CA /* PopoverView.swift */,
@@ -126,17 +119,31 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		554EE4CB45FF296D0CE18968 /* Console */ = {
+			isa = PBXGroup;
+			children = (
+				471241C59EEB2B40EB3A67CF /* ConsoleHandoffsViewModel.swift */,
+				37068D0728ADF651C433A888 /* ConsoleSecretsViewModel.swift */,
+				DDFB24E75C05C5E959E6F525 /* HandoffsListView.swift */,
+				19BAA16D28F415A691538BE1 /* MiniConsoleContentView.swift */,
+				345ED106CD2F438EAD723729 /* MiniConsoleWindow.swift */,
+				065D2AD6CAC196AAAFAB1E07 /* SecretsListView.swift */,
+			);
+			path = Console;
+			sourceTree = "<group>";
+		};
 		8681A112BB564974D7000ECF /* VaultBreakTests */ = {
 			isa = PBXGroup;
 			children = (
 				ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */,
 				752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */,
 				489A7EBDDD56C89FE7EBBF9A /* ClipboardTests.swift */,
-				D2E3F4A5B6C789012345678EF /* HandoffAttentionTests.swift */,
+				6A0893AAA35B784A7AF24701 /* HandoffAttentionTests.swift */,
 				8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */,
 				8AF9B6E04BDA29852C9E1AFD /* PopoverSecretsViewModelTests.swift */,
 				248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */,
-				F13A0018012345678901234AB /* SessionDisplayTests.swift */,
+				40DAC8AF8752A10050D247BA /* SessionDisplayTests.swift */,
+				1A9734949079C79DA912F893 /* VaultBreakURLParserTests.swift */,
 				620661CFDB0E55988F7525DA /* VaultLockStateTests.swift */,
 			);
 			path = VaultBreakTests;
@@ -167,7 +174,8 @@
 				020EB5A45B3ADF800E6A869E /* AppSessionModel.swift */,
 				2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */,
 				413DC56CEA65EF571EAE6CA8 /* Session.swift */,
-				F13A0014012345678901234AB /* SessionDisplay.swift */,
+				69C5226294E378976988ACEC /* SessionDisplay.swift */,
+				24CE239EBC0C8C6A0B9D6DA5 /* VaultBreakURL.swift */,
 			);
 			path = Session;
 			sourceTree = "<group>";
@@ -179,7 +187,7 @@
 				701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */,
 				AFB6631BBF9410F6C42B0AE6 /* API */,
 				DF7BA2D4919FDB2E7E6872E2 /* Application */,
-				G13A0010012345678901234AB /* Console */,
+				554EE4CB45FF296D0CE18968 /* Console */,
 				2E55140DCBB7EB1F735ECB14 /* Lock */,
 				B35A2EE080D589E18C282C74 /* Session */,
 				42F1A434DADF7326AFDD135F /* Support */,
@@ -200,6 +208,7 @@
 		DF7BA2D4919FDB2E7E6872E2 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4452A471EE209C3B97D1DC57 /* LoginItemService.swift */,
 				8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */,
 			);
 			path = Application;
@@ -281,24 +290,26 @@
 			files = (
 				13EC8E30D9308236FA0595FF /* APIClient.swift in Sources */,
 				29D61C1057BE53B71DA5E028 /* AppSessionModel.swift in Sources */,
-				B13A0012012345678901234AB /* ConsoleSecretsViewModel.swift in Sources */,
-				B13A0017012345678901234AB /* ConsoleHandoffsViewModel.swift in Sources */,
-				B13A0016012345678901234AB /* HandoffsListView.swift in Sources */,
-				B13A0015012345678901234AB /* MiniConsoleContentView.swift in Sources */,
 				701828197AF19C87EAD6CF94 /* Clipboard.swift in Sources */,
+				CC630FC708E6031A4C6D5131 /* ConsoleHandoffsViewModel.swift in Sources */,
+				830735948930BBFB3F9A717A /* ConsoleSecretsViewModel.swift in Sources */,
+				9ADB46AB6404385CD48A523E /* HandoffAttention.swift in Sources */,
+				12B88FF0D1266DB84354B5F7 /* HandoffsListView.swift in Sources */,
 				10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */,
-				B13A0010012345678901234AB /* MiniConsoleWindow.swift in Sources */,
+				AAF8103488EB6C78B42D51CA /* LoginItemService.swift in Sources */,
 				F37E73CB51BAA7369128714D /* MenuBarContentView.swift in Sources */,
-				A8F3C2D1E4B5678901234ABC /* HandoffAttention.swift in Sources */,
+				FF52134E08901EB82132B69A /* MiniConsoleContentView.swift in Sources */,
+				C5CA068ABE837731B4D51108 /* MiniConsoleWindow.swift in Sources */,
 				C16020EBAFF9258A8AC3446B /* Models.swift in Sources */,
 				A676F231C1E61E767528AEE2 /* PopoverSecretsViewModel.swift in Sources */,
 				48533A3353CE23C85B2C22E2 /* PopoverView.swift in Sources */,
 				3294EA4811A3466BD875B938 /* SecretsAPIClient.swift in Sources */,
-				B13A0011012345678901234AB /* SecretsListView.swift in Sources */,
+				35793305FE1A6B48BF3837C4 /* SecretsListView.swift in Sources */,
 				3055D2386FF2F63CE2131442 /* Session.swift in Sources */,
-				B13A0014012345678901234AB /* SessionDisplay.swift in Sources */,
+				5A0B880E3A5EE764D3E76304 /* SessionDisplay.swift in Sources */,
 				1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */,
 				38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */,
+				E351BAD9ED34C206CA04C479 /* VaultBreakURL.swift in Sources */,
 				80240FB00BC4C64018C88726 /* VaultLockState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,11 +321,12 @@
 				3803CC1776CB5B443EE50090 /* APIClientTests.swift in Sources */,
 				2FD0637034C8335BC7F5456E /* AppSessionModelTests.swift in Sources */,
 				F1932B9C3A5216D23F564F90 /* ClipboardTests.swift in Sources */,
-				C1D2E3F4A5B678901234567DE /* HandoffAttentionTests.swift in Sources */,
+				AC3D4CD63DAEC5358A9FA34C /* HandoffAttentionTests.swift in Sources */,
 				64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */,
 				03CA5AF2D0B6BE722B9471DD /* PopoverSecretsViewModelTests.swift in Sources */,
 				76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */,
-				B13A0018012345678901234AB /* SessionDisplayTests.swift in Sources */,
+				ED1BCDCFC914F532B6910F0F /* SessionDisplayTests.swift in Sources */,
+				653BED3B185B9AD60D205306 /* VaultBreakURLParserTests.swift in Sources */,
 				E6A20C625E74AC8577DD2F99 /* VaultLockStateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
