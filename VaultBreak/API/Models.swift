@@ -1,7 +1,7 @@
 import Foundation
 
 /// Secret metadata returned by the VaultBreak API (matches CLI `api.Secret`).
-struct SecretMetadata: Codable, Equatable, Sendable {
+struct SecretMetadata: Codable, Equatable, Sendable, Identifiable {
     let id: String
     let name: String
     let labels: [String: String]?

@@ -15,6 +15,6 @@ struct VaultBreakApp: App {
         } label: {
             MenuBarExtraLabel(model: sessionModel)
         }
-        .menuBarExtraStyle(.menu)
+        .menuBarExtraStyle(.window)
     }
 }

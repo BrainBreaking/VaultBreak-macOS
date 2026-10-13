@@ -7,17 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03CA5AF2D0B6BE722B9471DD /* PopoverSecretsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF9B6E04BDA29852C9E1AFD /* PopoverSecretsViewModelTests.swift */; };
 		10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */; };
 		13EC8E30D9308236FA0595FF /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484CEB3E0382BFA96B5A1F8C /* APIClient.swift */; };
 		1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */; };
 		29D61C1057BE53B71DA5E028 /* AppSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020EB5A45B3ADF800E6A869E /* AppSessionModel.swift */; };
 		2FD0637034C8335BC7F5456E /* AppSessionModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */; };
 		3055D2386FF2F63CE2131442 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413DC56CEA65EF571EAE6CA8 /* Session.swift */; };
+		3294EA4811A3466BD875B938 /* SecretsAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46698070DC6691EB660E04C /* SecretsAPIClient.swift */; };
 		3803CC1776CB5B443EE50090 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */; };
 		38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */; };
+		48533A3353CE23C85B2C22E2 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56E619B392A094EF0A320CA /* PopoverView.swift */; };
 		64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */; };
+		701828197AF19C87EAD6CF94 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F22ACDADF3E79D391A7CB6 /* Clipboard.swift */; };
 		76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */; };
+		A676F231C1E61E767528AEE2 /* PopoverSecretsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC43685CAE6686236C4739E8 /* PopoverSecretsViewModel.swift */; };
 		C16020EBAFF9258A8AC3446B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF11F19B564E71F964752DC3 /* Models.swift */; };
+		F1932B9C3A5216D23F564F90 /* ClipboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489A7EBDDD56C89FE7EBBF9A /* ClipboardTests.swift */; };
 		F37E73CB51BAA7369128714D /* MenuBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D06A53FEE89631E4C85B7D /* MenuBarContentView.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,13 +45,19 @@
 		2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStore.swift; sourceTree = "<group>"; };
 		413DC56CEA65EF571EAE6CA8 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		484CEB3E0382BFA96B5A1F8C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		489A7EBDDD56C89FE7EBBF9A /* ClipboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardTests.swift; sourceTree = "<group>"; };
 		701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakApp.swift; sourceTree = "<group>"; };
 		752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionModelTests.swift; sourceTree = "<group>"; };
+		8AF9B6E04BDA29852C9E1AFD /* PopoverSecretsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverSecretsViewModelTests.swift; sourceTree = "<group>"; };
 		8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakAppDelegate.swift; sourceTree = "<group>"; };
 		8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStoreTests.swift; sourceTree = "<group>"; };
 		ACAB0EC61472FFAF9D81C1C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AF11F19B564E71F964752DC3 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		B3F22ACDADF3E79D391A7CB6 /* Clipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
+		CC43685CAE6686236C4739E8 /* PopoverSecretsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverSecretsViewModel.swift; sourceTree = "<group>"; };
 		E0B93452B9C886CC8D0271F7 /* VaultBreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VaultBreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E46698070DC6691EB660E04C /* SecretsAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsAPIClient.swift; sourceTree = "<group>"; };
+		E56E619B392A094EF0A320CA /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
 		ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,8 +66,18 @@
 			isa = PBXGroup;
 			children = (
 				19D06A53FEE89631E4C85B7D /* MenuBarContentView.swift */,
+				CC43685CAE6686236C4739E8 /* PopoverSecretsViewModel.swift */,
+				E56E619B392A094EF0A320CA /* PopoverView.swift */,
 			);
 			path = Tray;
+			sourceTree = "<group>";
+		};
+		42F1A434DADF7326AFDD135F /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				B3F22ACDADF3E79D391A7CB6 /* Clipboard.swift */,
+			);
+			path = Support;
 			sourceTree = "<group>";
 		};
 		8681A112BB564974D7000ECF /* VaultBreakTests */ = {
@@ -63,7 +85,9 @@
 			children = (
 				ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */,
 				752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */,
+				489A7EBDDD56C89FE7EBBF9A /* ClipboardTests.swift */,
 				8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */,
+				8AF9B6E04BDA29852C9E1AFD /* PopoverSecretsViewModelTests.swift */,
 				248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */,
 			);
 			path = VaultBreakTests;
@@ -83,6 +107,7 @@
 			children = (
 				484CEB3E0382BFA96B5A1F8C /* APIClient.swift */,
 				AF11F19B564E71F964752DC3 /* Models.swift */,
+				E46698070DC6691EB660E04C /* SecretsAPIClient.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -105,6 +130,7 @@
 				AFB6631BBF9410F6C42B0AE6 /* API */,
 				DF7BA2D4919FDB2E7E6872E2 /* Application */,
 				B35A2EE080D589E18C282C74 /* Session */,
+				42F1A434DADF7326AFDD135F /* Support */,
 				094294C8AC58C309BC124812 /* Tray */,
 			);
 			path = VaultBreak;
@@ -203,9 +229,13 @@
 			files = (
 				13EC8E30D9308236FA0595FF /* APIClient.swift in Sources */,
 				29D61C1057BE53B71DA5E028 /* AppSessionModel.swift in Sources */,
+				701828197AF19C87EAD6CF94 /* Clipboard.swift in Sources */,
 				10833661D4CD37422C7CEA08 /* KeychainSessionStore.swift in Sources */,
 				F37E73CB51BAA7369128714D /* MenuBarContentView.swift in Sources */,
 				C16020EBAFF9258A8AC3446B /* Models.swift in Sources */,
+				A676F231C1E61E767528AEE2 /* PopoverSecretsViewModel.swift in Sources */,
+				48533A3353CE23C85B2C22E2 /* PopoverView.swift in Sources */,
+				3294EA4811A3466BD875B938 /* SecretsAPIClient.swift in Sources */,
 				3055D2386FF2F63CE2131442 /* Session.swift in Sources */,
 				1784C4A5907A32F05029286B /* VaultBreakApp.swift in Sources */,
 				38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */,
@@ -218,7 +248,9 @@
 			files = (
 				3803CC1776CB5B443EE50090 /* APIClientTests.swift in Sources */,
 				2FD0637034C8335BC7F5456E /* AppSessionModelTests.swift in Sources */,
+				F1932B9C3A5216D23F564F90 /* ClipboardTests.swift in Sources */,
 				64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */,
+				03CA5AF2D0B6BE722B9471DD /* PopoverSecretsViewModelTests.swift in Sources */,
 				76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
