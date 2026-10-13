@@ -12,3 +12,6 @@
 | 13 | DONE | `b4e107a` — mini vault window secrets CRUD (`feat(console)`) — see task-13-report.md |
 | 14 | DONE | `bd086f3` — handoffs tab + status strip (`feat(console): handoffs tab and status strip`) — see task-14-report.md |
 | 15 | DONE | `ecd82e2` — login item + URL polish (`feat(app): login item and vaultbreak URL polish`) — see task-15-report.md; 55 tests |
+| 16 | DONE | signing/notarization docs + CLI releases URL + PROJECT_MEMORY — see task-16-report.md |
+
+**Milestone M6:** complete (Tasks 6–16).
