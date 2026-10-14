@@ -72,16 +72,41 @@ final class KeychainSessionStoreTests: XCTestCase {
         XCTAssertEqual(loaded.apiUrl, "https://vault.brainbreaking.com")
     }
 
-    func testClearDeletesSessionData() {
+    func testClearDeletesSessionData() throws {
         let mock = MockKeychainSessionDataSource()
         mock.data = Data("{}".utf8)
         let store = KeychainSessionStore(dataSource: mock)
 
-        store.clear()
+        try store.clear()
 
         XCTAssertEqual(mock.deleteCallCount, 1)
         XCTAssertNil(mock.data)
         XCTAssertNil(store.load())
+    }
+
+    func testClearThrowsWhenDeleteFails() {
+        final class FailingDelete: KeychainSessionDataSource, @unchecked Sendable {
+            func loadSessionData() -> Data? { nil }
+            func saveSessionData(_ data: Data) -> OSStatus { errSecSuccess }
+            func deleteSessionData() -> OSStatus { errSecAuthFailed }
+        }
+        let store = KeychainSessionStore(dataSource: FailingDelete())
+        XCTAssertThrowsError(try store.clear()) { error in
+            XCTAssertEqual(error as? KeychainSessionError, .clearFailed(errSecAuthFailed))
+        }
+    }
+
+    func testClearThrowsWhenItemStillReadable() {
+        final class Sticky: KeychainSessionDataSource, @unchecked Sendable {
+            let sticky = Data(#"{"version":1,"apiUrl":"https://vault.brainbreaking.com","token":"t","updatedAt":"2026-10-12T20:00:00Z"}"#.utf8)
+            func loadSessionData() -> Data? { sticky }
+            func saveSessionData(_ data: Data) -> OSStatus { errSecSuccess }
+            func deleteSessionData() -> OSStatus { errSecSuccess }
+        }
+        let store = KeychainSessionStore(dataSource: Sticky())
+        XCTAssertThrowsError(try store.clear()) { error in
+            XCTAssertEqual(error as? KeychainSessionError, .clearFailed(errSecInternalError))
+        }
     }
 
     func testSystemDataSourceReturnsNilForMissingItem() {

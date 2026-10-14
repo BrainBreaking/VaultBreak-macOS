@@ -179,9 +179,19 @@ struct MenuBarContentView: View {
         alert.addButton(withTitle: "Sign Out")
         NSApplication.shared.activate(ignoringOtherApps: true)
         guard alert.runModal() == .alertSecondButtonReturn else { return }
-        model.clearSession()
-        lockState.lock()
-        popoverViewModel.clearLoadedSecrets()
+        do {
+            try model.clearSession()
+            lockState.lock()
+            popoverViewModel.clearLoadedSecrets()
+        } catch {
+            let fail = NSAlert()
+            fail.messageText = "Could not sign out"
+            fail.informativeText =
+                "VaultBreak could not remove the saved session from Keychain. Try again, or delete the item manually in Keychain Access."
+            fail.alertStyle = .warning
+            fail.addButton(withTitle: "OK")
+            fail.runModal()
+        }
     }
 
     private func updateHandoffPolling() {

@@ -79,14 +79,18 @@ final class DeviceSignInModel: ObservableObject {
             guard gen == generation else { return }
             state = .waiting(userCode: code.userCode)
             let target = code.verificationUriComplete ?? code.verificationUri
-            if let url = URL(string: target) {
-                openURL(url)
+            guard let url = URL(string: target), url.scheme != nil else {
+                state = .failed(message: "Invalid sign-in URL. Try again.")
+                return
             }
+            openURL(url)
             let token = try await poll(code)
             try Task.checkCancellation()
             guard gen == generation else { return }
             let session = Session(apiUrl: apiUrl, token: token.accessToken, updatedAt: Date())
             try apply(session)
+            // Cancel may have raced after apply started; do not overwrite cancel's idle.
+            guard gen == generation else { return }
             state = .idle
         } catch is CancellationError {
             finishCancelled(gen)

@@ -98,7 +98,7 @@ final class AppSessionModelTests: XCTestCase {
         mock.data = Data(json.utf8)
         let model = AppSessionModel(store: KeychainSessionStore(dataSource: mock))
 
-        model.clearSession()
+        try model.clearSession()
 
         XCTAssertFalse(model.isSignedIn)
         XCTAssertEqual(mock.deleteCallCount, 1)

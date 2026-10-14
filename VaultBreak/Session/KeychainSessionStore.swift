@@ -170,8 +170,16 @@ struct KeychainSessionStore {
         }
     }
 
-    func clear() {
-        _ = dataSource.deleteSessionData()
+    func clear() throws {
+        let status = dataSource.deleteSessionData()
+        // Already absent is success (SecItemDelete / missing item).
+        if status != errSecSuccess && status != errSecItemNotFound {
+            throw KeychainSessionError.clearFailed(status)
+        }
+        // Durable logout: refuse to claim success if a blob is still readable.
+        if load() != nil {
+            throw KeychainSessionError.clearFailed(errSecInternalError)
+        }
     }
 
     /// go-keyring stores secrets with a well-known prefix so multiline/binary

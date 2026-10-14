@@ -93,4 +93,5 @@ enum SessionError: Error, Equatable {
 
 enum KeychainSessionError: Error, Equatable {
     case saveFailed(OSStatus)
+    case clearFailed(OSStatus)
 }

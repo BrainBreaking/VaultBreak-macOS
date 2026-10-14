@@ -139,4 +139,36 @@ final class DeviceSignInModelTests: XCTestCase {
         await sut.waitUntilFinished()
         if case .failed = sut.state {} else { XCTFail("expected failed") }
     }
+
+    func testInvalidVerificationURLFailsWithoutPolling() async {
+        let rec = Recorder()
+        var polled = false
+        let sut = DeviceSignInModel(
+            requestCode: {
+                DeviceCodeResponse(
+                    deviceCode: "dev",
+                    userCode: "ABCD-1234",
+                    verificationUri: "not a url",
+                    verificationUriComplete: nil,
+                    interval: 1,
+                    expiresIn: 60
+                )
+            },
+            poll: { _ in
+                polled = true
+                return DeviceTokenResponse(accessToken: "t", tokenType: "Bearer")
+            },
+            openURL: { rec.urls.append($0) }
+        )
+        sut.start { rec.sessions.append($0) }
+        await sut.waitUntilFinished()
+        XCTAssertFalse(polled)
+        XCTAssertTrue(rec.urls.isEmpty)
+        XCTAssertTrue(rec.sessions.isEmpty)
+        if case .failed(let message) = sut.state {
+            XCTAssertTrue(message.contains("Invalid sign-in URL"))
+        } else {
+            XCTFail("expected failed, got \(sut.state)")
+        }
+    }
 }
