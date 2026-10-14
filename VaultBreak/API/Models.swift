@@ -31,7 +31,7 @@ struct Handoff: Codable, Equatable, Sendable, Identifiable {
 
 enum HandoffAttention {
     static let pendingStatus = "pending"
-    static let handoffsWebURL = URL(string: "https://vault.brainbreaking.com/handoffs")!
+    static var handoffsWebURL: URL { VaultBreakWeb.handoffsURL }
 
     static func needsAttention(handoffs: [Handoff]) -> Bool {
         handoffs.contains { $0.status == pendingStatus }

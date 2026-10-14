@@ -46,15 +46,51 @@ struct Session: Codable, Equatable {
 
     static func decode(from data: Data) throws -> Session {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        // Go's encoding/json emits RFC3339 with fractional seconds (e.g. …58.443571Z).
+        // Foundation's .iso8601 strategy rejects those and would leave the tray signed out.
+        decoder.dateDecodingStrategy = .custom(decodeISO8601Date)
         let session = try decoder.decode(Session.self, from: data)
         guard session.version == 1 else {
             throw SessionError.unsupportedVersion(session.version)
         }
         return session
     }
+
+    func encode() throws -> Data {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .custom { date, encoder in
+            var container = encoder.singleValueContainer()
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            try container.encode(formatter.string(from: date))
+        }
+        return try encoder.encode(self)
+    }
+
+    private static func decodeISO8601Date(from decoder: Decoder) throws -> Date {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+        let withFraction = ISO8601DateFormatter()
+        withFraction.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = withFraction.date(from: string) {
+            return date
+        }
+        let plain = ISO8601DateFormatter()
+        plain.formatOptions = [.withInternetDateTime]
+        if let date = plain.date(from: string) {
+            return date
+        }
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "Invalid ISO8601 date: \(string)"
+        )
+    }
 }
 
 enum SessionError: Error, Equatable {
     case unsupportedVersion(Int)
+}
+
+enum KeychainSessionError: Error, Equatable {
+    case saveFailed(OSStatus)
 }

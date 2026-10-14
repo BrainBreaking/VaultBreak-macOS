@@ -49,6 +49,17 @@ final class AppSessionModel: ObservableObject {
         session = nil
     }
 
+    /// Persists a new session (device login) and updates in-memory state.
+    func applySession(_ session: Session) throws {
+        try store.save(session)
+        self.session = session
+    }
+
+    /// Opens the VaultBreak web app for handoff review (same host as CLI `open`).
+    func openHandoffsInBrowser() {
+        NSWorkspace.shared.open(VaultBreakWeb.handoffsURL)
+    }
+
     func handleOpenURL(_ url: URL) {
         switch VaultBreakURLParser.action(for: url) {
         case .sessionUpdated:
