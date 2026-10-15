@@ -31,7 +31,7 @@ struct VaultBreakApp: App {
                     sessionModel.reload()
                 }
         } label: {
-            MenuBarExtraLabel(model: sessionModel, handoffModel: handoffModel)
+            MenuBarExtraLabel(model: sessionModel, lockState: vaultLock, handoffModel: handoffModel)
         }
         .menuBarExtraStyle(.window)
     }

@@ -36,6 +36,20 @@ final class SessionCodecTests: XCTestCase {
         XCTAssertEqual(session.updatedAt, components.date)
     }
 
+    func testDecodeAcceptsGoFractionalSecondUpdatedAt() throws {
+        let json = """
+        {
+          "version": 1,
+          "apiUrl": "https://vault.brainbreaking.com",
+          "token": "vb_live_test_token",
+          "updatedAt": "2026-10-13T02:16:58.443571Z"
+        }
+        """
+        let session = try Session.decode(from: Data(json.utf8))
+        XCTAssertEqual(session.version, 1)
+        XCTAssertNotNil(session.updatedAt)
+    }
+
     func testDecodeDefaultsMissingVersionToOne() throws {
         let json = """
         {"apiUrl":"https://api.test","token":"t","email":"e@e.com","memberId":"m"}

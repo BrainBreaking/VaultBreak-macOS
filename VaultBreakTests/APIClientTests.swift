@@ -10,6 +10,11 @@ private final class MockKeychainSessionDataSource: KeychainSessionDataSource, @u
         data
     }
 
+    func saveSessionData(_ data: Data) -> OSStatus {
+        self.data = data
+        return errSecSuccess
+    }
+
     func deleteSessionData() -> OSStatus {
         deleteCallCount += 1
         data = nil

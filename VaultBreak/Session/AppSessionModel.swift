@@ -35,7 +35,7 @@ final class AppSessionModel: ObservableObject {
         }
         return try APIClient(session: session, urlSession: urlSession) { [weak self] in
             Task { @MainActor in
-                self?.clearSession()
+                try? self?.clearSession()
             }
         }
     }
@@ -44,9 +44,20 @@ final class AppSessionModel: ObservableObject {
         session = store.load()
     }
 
-    func clearSession() {
-        store.clear()
+    func clearSession() throws {
+        try store.clear()
         session = nil
+    }
+
+    /// Persists a new session (device login) and updates in-memory state.
+    func applySession(_ session: Session) throws {
+        try store.save(session)
+        self.session = session
+    }
+
+    /// Opens the VaultBreak web app for handoff review (same host as CLI `open`).
+    func openHandoffsInBrowser() {
+        NSWorkspace.shared.open(VaultBreakWeb.handoffsURL)
     }
 
     func handleOpenURL(_ url: URL) {

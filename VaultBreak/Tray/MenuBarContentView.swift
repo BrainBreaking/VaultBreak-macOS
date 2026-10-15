@@ -8,6 +8,7 @@ struct MenuBarContentView: View {
     @StateObject private var popoverViewModel: PopoverSecretsViewModel
     @State private var popoverVisible = false
     @State private var appIsActive = NSApplication.shared.isActive
+    @StateObject private var signIn = DeviceSignInModel(openURL: { NSWorkspace.shared.open($0) })
 
     init(model: AppSessionModel, lockState: VaultLockState, handoffModel: HandoffAttentionModel) {
         self.model = model
@@ -22,50 +23,128 @@ struct MenuBarContentView: View {
                 if let label = model.accountLabel {
                     Text(label)
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(BrainBreakingTheme.muted)
                         .padding(.horizontal, 12)
-                        .padding(.top, 8)
+                        .padding(.top, 10)
                 }
                 PopoverView(viewModel: popoverViewModel, lockState: lockState, handoffModel: handoffModel)
-                Divider()
-                Button("Open Vault…") {
+                Divider().overlay(BrainBreakingTheme.border)
+                Button {
                     MiniConsolePresenter.open(sessionModel: model, lockState: lockState)
+                } label: {
+                    Text("Open Vault…")
+                        .foregroundStyle(BrainBreakingTheme.sand)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
+                .buttonStyle(.plain)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
                 if lockState.isLocked {
-                    Button("Unlock Vault…") {
+                    Button {
                         Task { await lockState.unlock() }
+                    } label: {
+                        Text("Unlock Vault…")
+                            .foregroundStyle(BrainBreakingTheme.sand)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
                 } else {
-                    Button("Lock Vault") {
+                    Button {
                         lockState.lock()
                         popoverViewModel.clearLoadedSecrets()
+                    } label: {
+                        Text("Lock Vault")
+                            .foregroundStyle(BrainBreakingTheme.sand)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
+                    .buttonStyle(.plain)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
                 }
+                Button {
+                    NSWorkspace.shared.open(VaultBreakWeb.overviewURL)
+                } label: {
+                    Text("Management")
+                        .foregroundStyle(BrainBreakingTheme.sand)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                Button {
+                    confirmAndLogOut()
+                } label: {
+                    Text("Log out…")
+                        .foregroundStyle(BrainBreakingTheme.muted)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
             } else {
-                Text("Not signed in — run vaultbreak login")
-                    .padding(12)
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("VaultBreak")
+                        .font(.headline)
+                        .foregroundStyle(BrainBreakingTheme.sand)
+                    switch signIn.state {
+                    case .idle, .failed:
+                        if case .failed(let message) = signIn.state {
+                            Text(message)
+                                .font(.caption)
+                                .foregroundStyle(.red)
+                        }
+                        Button("Sign in…") {
+                            signIn.start { try model.applySession($0) }
+                        }
+                        .buttonStyle(.plain)
+                        .foregroundStyle(BrainBreakingTheme.sand)
+                    case .starting:
+                        Text("Contacting VaultBreak…")
+                            .font(.subheadline)
+                            .foregroundStyle(BrainBreakingTheme.muted)
+                        Button("Cancel") { signIn.cancel() }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(BrainBreakingTheme.muted)
+                    case .waiting(let userCode):
+                        Text(userCode)
+                            .font(.system(.title3, design: .monospaced))
+                            .foregroundStyle(BrainBreakingTheme.sand)
+                            .textSelection(.enabled)
+                        Text("Waiting for approval…")
+                            .font(.subheadline)
+                            .foregroundStyle(BrainBreakingTheme.muted)
+                        Button("Cancel") { signIn.cancel() }
+                            .buttonStyle(.plain)
+                            .foregroundStyle(BrainBreakingTheme.muted)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(14)
             }
-            Divider()
+            Divider().overlay(BrainBreakingTheme.border)
             Toggle("Open at Login", isOn: Binding(
                 get: { LoginItemService.isEnabled },
                 set: { LoginItemService.isEnabled = $0 }
             ))
+            .toggleStyle(.switch)
+            .tint(BrainBreakingTheme.accent)
+            .foregroundStyle(BrainBreakingTheme.sand)
             .padding(.horizontal, 12)
-            .padding(.vertical, 4)
+            .padding(.vertical, 6)
             Button("Quit") {
                 NSApplication.shared.terminate(nil)
             }
+            .buttonStyle(.plain)
+            .foregroundStyle(BrainBreakingTheme.muted)
             .keyboardShortcut("q")
-            .padding(8)
+            .padding(.horizontal, 12)
+            .padding(.bottom, 10)
             .frame(maxWidth: .infinity, alignment: .trailing)
         }
-        .frame(width: 320)
+        .frame(width: 340)
+        .background(BrainBreakingTheme.ink)
         .onAppear {
             popoverVisible = true
             updateHandoffPolling()
@@ -91,6 +170,30 @@ struct MenuBarContentView: View {
         }
     }
 
+    private func confirmAndLogOut() {
+        let alert = NSAlert()
+        alert.messageText = "Sign out of VaultBreak on this Mac?"
+        alert.informativeText = "You will need to sign in again to view secrets and handoffs."
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "Cancel")
+        alert.addButton(withTitle: "Sign Out")
+        NSApplication.shared.activate(ignoringOtherApps: true)
+        guard alert.runModal() == .alertSecondButtonReturn else { return }
+        do {
+            try model.clearSession()
+            lockState.lock()
+            popoverViewModel.clearLoadedSecrets()
+        } catch {
+            let fail = NSAlert()
+            fail.messageText = "Could not sign out"
+            fail.informativeText =
+                "VaultBreak could not remove the saved session from Keychain. Try again, or delete the item manually in Keychain Access."
+            fail.alertStyle = .warning
+            fail.addButton(withTitle: "OK")
+            fail.runModal()
+        }
+    }
+
     private func updateHandoffPolling() {
         let shouldPoll = model.isSignedIn && (popoverVisible || appIsActive)
         handoffModel.setPollingActive(shouldPoll)
@@ -99,16 +202,21 @@ struct MenuBarContentView: View {
 
 struct MenuBarExtraLabel: View {
     @ObservedObject var model: AppSessionModel
+    @ObservedObject var lockState: VaultLockState
     @ObservedObject var handoffModel: HandoffAttentionModel
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
             Image(systemName: handoffModel.needsAttention ? "exclamationmark.shield.fill" : "lock.shield")
                 .symbolRenderingMode(.hierarchical)
-                .opacity(model.isSignedIn ? 1 : 0.45)
+                .foregroundStyle(
+                    model.isSignedIn
+                        ? (lockState.isLocked ? BrainBreakingTheme.muted : BrainBreakingTheme.sand)
+                        : BrainBreakingTheme.muted.opacity(0.7)
+                )
             if handoffModel.needsAttention {
                 Circle()
-                    .fill(Color.red)
+                    .fill(BrainBreakingTheme.accent)
                     .frame(width: 7, height: 7)
                     .offset(x: 5, y: -5)
             }
@@ -119,6 +227,7 @@ struct MenuBarExtraLabel: View {
     private var accessibilityText: String {
         if !model.isSignedIn { return "VaultBreak, not signed in" }
         if handoffModel.needsAttention { return "VaultBreak, pending handoffs need attention" }
-        return "VaultBreak, signed in"
+        if lockState.isLocked { return "VaultBreak, locked" }
+        return "VaultBreak, unlocked"
     }
 }

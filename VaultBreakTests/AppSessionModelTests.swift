@@ -5,9 +5,16 @@ import XCTest
 private final class MockKeychainSessionDataSource: KeychainSessionDataSource, @unchecked Sendable {
     var data: Data?
     private(set) var deleteCallCount = 0
+    private(set) var saveCallCount = 0
 
     func loadSessionData() -> Data? {
         data
+    }
+
+    func saveSessionData(_ data: Data) -> OSStatus {
+        saveCallCount += 1
+        self.data = data
+        return errSecSuccess
     }
 
     func deleteSessionData() -> OSStatus {
@@ -91,11 +98,32 @@ final class AppSessionModelTests: XCTestCase {
         mock.data = Data(json.utf8)
         let model = AppSessionModel(store: KeychainSessionStore(dataSource: mock))
 
-        model.clearSession()
+        try model.clearSession()
 
         XCTAssertFalse(model.isSignedIn)
         XCTAssertEqual(mock.deleteCallCount, 1)
         XCTAssertNil(mock.data)
+    }
+
+    func testApplySessionPersistsAndUpdatesState() throws {
+        let mock = MockKeychainSessionDataSource()
+        let model = AppSessionModel(store: KeychainSessionStore(dataSource: mock))
+        XCTAssertFalse(model.isSignedIn)
+
+        let session = Session(
+            version: 1,
+            apiUrl: "https://vault.brainbreaking.com",
+            token: "vb_live_device",
+            email: "device@example.com",
+            memberId: "mem-1",
+            updatedAt: Date(timeIntervalSince1970: 1_700_000_000)
+        )
+        try model.applySession(session)
+
+        XCTAssertTrue(model.isSignedIn)
+        XCTAssertEqual(model.accountLabel, "device@example.com")
+        XCTAssertEqual(mock.saveCallCount, 1)
+        XCTAssertNotNil(mock.data)
     }
 
     func testHandleOpenURLSessionUpdatedReloads() throws {
