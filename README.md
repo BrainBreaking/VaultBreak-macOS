@@ -25,9 +25,15 @@ Or from the command line:
 xcodebuild -scheme VaultBreak -destination 'platform=macOS' build
 ```
 
-## Run behavior (scaffold)
+## Distribution
 
-This repo is a **Task 6 scaffold**: a menu bar agent (`LSUIElement`) with a placeholder panel showing **Signed out**. Full keychain integration and deep links are implemented in later SDD tasks.
+Prebuilt binaries are published on [GitHub Releases](https://github.com/BrainBreaking/VaultBreak-macOS/releases/latest) when available. Until the first notarized asset is uploaded, build from source or follow [docs/signing-and-notarization.md](docs/signing-and-notarization.md) to produce a signed `.dmg`/`.zip`.
+
+The `vaultbreak` CLI opens this app when installed; if missing, it prints the releases URL above.
+
+## Run behavior
+
+Menu bar companion (`LSUIElement`): Keychain-backed session (shared with CLI), popover secrets, mini-console, vault lock, handoffs attention, login item, and `vaultbreak://` deep links.
 
 Before using the app with the CLI, authenticate:
 

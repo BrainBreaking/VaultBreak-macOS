@@ -23,3 +23,25 @@ targets:
         INFOPLIST_FILE: VaultBreak/Info.plist
         INFOPLIST_KEY_LSUIElement: YES
         INFOPLIST_KEY_CFBundleDisplayName: VaultBreak
+  VaultBreakTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - VaultBreakTests
+    dependencies:
+      - target: VaultBreak
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.brainbreaking.vaultbreak.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/VaultBreak.app/Contents/MacOS/VaultBreak"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+schemes:
+  VaultBreak:
+    build:
+      targets:
+        VaultBreak: all
+        VaultBreakTests: [test]
+    test:
+      targets:
+        - VaultBreakTests
