@@ -1,4 +1,5 @@
 import Foundation
+import LocalAuthentication
 import Security
 
 /// Reads/writes the session JSON blob shared with `vaultbreak-cli` (go-keyring: service + account).
@@ -8,6 +9,54 @@ protocol KeychainSessionDataSource: Sendable {
     func saveSessionData(_ data: Data) -> OSStatus
     @discardableResult
     func deleteSessionData() -> OSStatus
+}
+
+/// Sandboxed Keychain implementation used by the Mac App Store build. It never
+/// launches `/usr/bin/security`, which is unavailable inside App Sandbox.
+struct SecItemKeychainSessionDataSource: KeychainSessionDataSource {
+    let service: String
+    let account: String
+
+    func loadSessionData() -> Data? {
+        let context = LAContext()
+        context.interactionNotAllowed = true
+        let query: [String: Any] = baseQuery.merging([
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecUseAuthenticationContext as String: context,
+        ]) { _, new in new }
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        guard status == errSecSuccess else { return nil }
+        return result as? Data
+    }
+
+    func saveSessionData(_ data: Data) -> OSStatus {
+        let updateStatus = SecItemUpdate(
+            baseQuery as CFDictionary,
+            [kSecValueData as String: data] as CFDictionary
+        )
+        if updateStatus == errSecSuccess { return updateStatus }
+        guard updateStatus == errSecItemNotFound else { return updateStatus }
+        let attributes = baseQuery.merging([
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
+        ]) { _, new in new }
+        return SecItemAdd(attributes as CFDictionary, nil)
+    }
+
+    func deleteSessionData() -> OSStatus {
+        let status = SecItemDelete(baseQuery as CFDictionary)
+        return status == errSecItemNotFound ? errSecSuccess : status
+    }
+
+    private var baseQuery: [String: Any] {
+        [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+        ]
+    }
 }
 
 /// Loads Keychain secrets the same way go-keyring does: via `/usr/bin/security`.
@@ -69,13 +118,15 @@ struct SystemKeychainSessionDataSource: KeychainSessionDataSource {
     }
 
     private func loadViaSecItem() -> Data? {
+        let context = LAContext()
+        context.interactionNotAllowed = true
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
             kSecAttrAccount as String: account,
             kSecReturnData as String: true,
             kSecMatchLimit as String: kSecMatchLimitOne,
-            kSecUseAuthenticationUI as String: kSecUseAuthenticationUIFail,
+            kSecUseAuthenticationContext as String: context,
         ]
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
@@ -103,7 +154,7 @@ struct SystemKeychainSessionDataSource: KeychainSessionDataSource {
         let line = "add-generic-password -A -s \(Self.shellQuote(service)) -a \(Self.shellQuote(account)) -w \(Self.shellQuote(password))\n"
         guard let commandData = line.data(using: .utf8), commandData.count <= 4096 else {
             process.terminate()
-            _ = try? process.waitUntilExit()
+            process.waitUntilExit()
             return errSecParam
         }
         stdin.fileHandleForWriting.write(commandData)
@@ -145,8 +196,21 @@ struct KeychainSessionStore {
     private let dataSource: KeychainSessionDataSource
 
     init(dataSource: KeychainSessionDataSource? = nil) {
-        self.dataSource = dataSource
-            ?? SystemKeychainSessionDataSource(service: Self.service, account: Self.account)
+        if let dataSource {
+            self.dataSource = dataSource
+        } else {
+            #if APP_STORE
+            self.dataSource = SecItemKeychainSessionDataSource(
+                service: Self.service,
+                account: Self.account
+            )
+            #else
+            self.dataSource = SystemKeychainSessionDataSource(
+                service: Self.service,
+                account: Self.account
+            )
+            #endif
+        }
     }
 
     func load() -> Session? {

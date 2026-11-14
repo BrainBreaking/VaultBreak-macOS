@@ -22,7 +22,8 @@ struct DeviceAuthClient: Sendable {
     }
 
     func requestDeviceCode() async throws -> DeviceCodeResponse {
-        let request = makeRequest(path: "/api/v1/device/code", body: nil)
+        let body = try JSONEncoder().encode(["client": "macos"])
+        let request = makeRequest(path: "/api/v1/device/code", body: body)
         return try await perform(request, as: DeviceCodeResponse.self)
     }
 

@@ -19,5 +19,11 @@ Package.resolved
 # macOS
 .DS_Store
 
+# Local agent / IDE state
+.kiro/
+.cursor/
+.agents/
+.codex/
+
 # XcodeGen (optional local overrides)
 *.xcodeproj/project.xcworkspace/xcuserdata/

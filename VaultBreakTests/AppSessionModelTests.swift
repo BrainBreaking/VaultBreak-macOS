@@ -166,4 +166,18 @@ final class AppSessionModelTests: XCTestCase {
 
         XCTAssertFalse(model.isSignedIn)
     }
+
+    func testForgedGlobalAccountDeletedCallbackDoesNotClearSession() throws {
+        let mock = MockKeychainSessionDataSource()
+        mock.data = Data("""
+        {"version":1,"apiUrl":"https://vault.example.com","token":"secret-token"}
+        """.utf8)
+        let model = AppSessionModel(store: KeychainSessionStore(dataSource: mock))
+        XCTAssertTrue(model.isSignedIn)
+
+        model.handleOpenURL(URL(string: "vaultbreak://account-deleted")!)
+
+        XCTAssertTrue(model.isSignedIn)
+        XCTAssertEqual(mock.deleteCallCount, 0)
+    }
 }

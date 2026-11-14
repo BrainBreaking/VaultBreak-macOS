@@ -99,8 +99,8 @@ Save when done.
 ## Step 5 — Age rating
 
 1. Still under App Information (or **Age Rating** / questionnaire link).
-2. Complete the questionnaire honestly (secrets vault / productivity — typically low age rating; no unrestricted web, gambling, etc.).
-3. Save.
+2. Apple rejected build 2 under guideline 2.3.6 because In-App Controls said the app has Parental Controls or Age Assurance. The app has neither. Set **Parental Controls** to **None**. Set unrestricted web access to **None** as well: VaultBreak opens its own site, and it is not a web browser.
+3. Save. Do not resubmit the version from this step alone.
 
 ---
 
@@ -190,15 +190,15 @@ xcodebuild -exportArchive \
   -exportPath "$PWD/build/mas-export"
 ```
 
-**Submit for Review — resubmitted (ASC API 2026-10-19):**
+**Review result — rejected with unresolved issues (2026-10-27):**
 
 | Item | Value |
 |------|--------|
 | Prior submission | `8330f311-f434-431a-8906-2b2fbe0c8d0d` — cancelled (`COMPLETE` / developer rejected) to swap builds |
 | Review submission | `4dea5873-2f7e-4a1e-b756-b0ed1c4dcf64` |
 | Submitted | `2026-10-19T20:52:07Z` |
-| Submission state | `WAITING_FOR_REVIEW` |
-| Version 1.0 state | `WAITING_FOR_REVIEW` |
+| Submission state | `UNRESOLVED_ISSUES` |
+| Version 1.0 state | `REJECTED` |
 | Attached build | CFBundleVersion **2** (`1fc1a66a-…`) |
 
 Demo Google account ready while Apple reviews: `vaultbreak.asc.review@gmail.com` — approved member, demo secret + handoff seeded (2026-10-17).
@@ -216,7 +216,8 @@ Demo Google account ready while Apple reviews: `vaultbreak.asc.review@gmail.com`
 - [x] Step 7 — Pricing / availability
 - [x] Step 8 — Version metadata + Review Notes + `APP_DESKTOP` screenshots (COMPLETE)
 - [x] Step 9 — MAS build **2** uploaded + attached to 1.0 (contrast fix)
-- [x] Submit for Review — `WAITING_FOR_REVIEW` (2026-10-19; submission `4dea5873-…`)
+- [x] Initial review completed — `UNRESOLVED_ISSUES` / `REJECTED` (2026-10-27)
+- [ ] Correct age rating, attach remediated build 3, reply in Resolution Center, and resubmit
 
 
 ---

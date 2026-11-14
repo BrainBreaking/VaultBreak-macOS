@@ -1,3 +1,4 @@
+import AuthenticationServices
 import XCTest
 @testable import VaultBreak
 
@@ -21,10 +22,11 @@ final class DeviceSignInModelTests: XCTestCase {
 
     func testSuccessAppliesProductionSessionAndOpensCompleteURL() async {
         let rec = Recorder()
+        let authenticator = WebAuthenticationStarterStub()
         let sut = DeviceSignInModel(
             requestCode: { Self.code() },
             poll: { _ in DeviceTokenResponse(accessToken: "tok", tokenType: "Bearer") },
-            openURL: { rec.urls.append($0) }
+            authenticator: authenticator
         )
         sut.start { rec.sessions.append($0) }
         await sut.waitUntilFinished()
@@ -33,19 +35,19 @@ final class DeviceSignInModelTests: XCTestCase {
         XCTAssertEqual(rec.sessions.count, 1)
         XCTAssertEqual(rec.sessions.first?.token, "tok")
         XCTAssertEqual(rec.sessions.first?.apiUrl, VaultBreakWeb.baseURL.absoluteString)
-        XCTAssertEqual(rec.urls.first?.absoluteString, "https://vault.brainbreaking.com/device?user_code=ABCD-1234")
+        XCTAssertEqual(authenticator.startedURLs.first?.absoluteString, "https://vault.brainbreaking.com/device?user_code=ABCD-1234")
     }
 
     func testFallsBackToVerificationUri() async {
-        let rec = Recorder()
+        let authenticator = WebAuthenticationStarterStub()
         let sut = DeviceSignInModel(
             requestCode: { Self.code(complete: nil) },
             poll: { _ in DeviceTokenResponse(accessToken: "t", tokenType: "Bearer") },
-            openURL: { rec.urls.append($0) }
+            authenticator: authenticator
         )
         sut.start { _ in }
         await sut.waitUntilFinished()
-        XCTAssertEqual(rec.urls.first?.absoluteString, "https://vault.brainbreaking.com/device")
+        XCTAssertEqual(authenticator.startedURLs.first?.absoluteString, "https://vault.brainbreaking.com/device")
     }
 
     func testErrorShowsMessageAndDoesNotApply() async {
@@ -53,7 +55,7 @@ final class DeviceSignInModelTests: XCTestCase {
         let sut = DeviceSignInModel(
             requestCode: { Self.code() },
             poll: { _ in throw DeviceAuthError.accessDenied },
-            openURL: { _ in }
+            authenticator: WebAuthenticationStarterStub()
         )
         sut.start { rec.sessions.append($0) }
         await sut.waitUntilFinished()
@@ -67,7 +69,7 @@ final class DeviceSignInModelTests: XCTestCase {
         let sut = DeviceSignInModel(
             requestCode: { Self.code() },
             poll: { _ in throw URLError(.cancelled) },
-            openURL: { _ in }
+            authenticator: WebAuthenticationStarterStub()
         )
         sut.start { rec.sessions.append($0) }
         await sut.waitUntilFinished()
@@ -79,7 +81,7 @@ final class DeviceSignInModelTests: XCTestCase {
         let sut = DeviceSignInModel(
             requestCode: { throw CancellationError() },
             poll: { _ in throw CancellationError() },
-            openURL: { _ in }
+            authenticator: WebAuthenticationStarterStub()
         )
         sut.start { _ in }
         await sut.waitUntilFinished()
@@ -94,7 +96,7 @@ final class DeviceSignInModelTests: XCTestCase {
                 try await Task.sleep(nanoseconds: 5_000_000_000)
                 return DeviceTokenResponse(accessToken: "late", tokenType: "Bearer")
             },
-            openURL: { _ in }
+            authenticator: WebAuthenticationStarterStub()
         )
         sut.start { rec.sessions.append($0) }
         let deadline = Date().addingTimeInterval(2)
@@ -121,7 +123,7 @@ final class DeviceSignInModelTests: XCTestCase {
                 try await Task.sleep(nanoseconds: 200_000_000)
                 return DeviceTokenResponse(accessToken: "t", tokenType: "Bearer")
             },
-            openURL: { _ in }
+            authenticator: WebAuthenticationStarterStub()
         )
         sut.start { _ in }
         sut.start { _ in }
@@ -133,16 +135,117 @@ final class DeviceSignInModelTests: XCTestCase {
         let sut = DeviceSignInModel(
             requestCode: { Self.code() },
             poll: { _ in DeviceTokenResponse(accessToken: "t", tokenType: "Bearer") },
-            openURL: { _ in }
+            authenticator: WebAuthenticationStarterStub()
         )
         sut.start { _ in throw URLError(.badURL) }
         await sut.waitUntilFinished()
         if case .failed = sut.state {} else { XCTFail("expected failed") }
     }
 
-    func testInvalidVerificationURLFailsWithoutPolling() async {
-        let rec = Recorder()
-        var polled = false
+    func testValidAuthenticationCallbackKeepsPollingAuthoritative() async {
+        let authenticator = WebAuthenticationStarterStub()
+        let sut = DeviceSignInModel(
+            requestCode: { Self.code() },
+            poll: { _ in
+                try await Task.sleep(nanoseconds: 100_000_000)
+                return DeviceTokenResponse(accessToken: "t", tokenType: "Bearer")
+            },
+            authenticator: authenticator
+        )
+        sut.start { _ in }
+        while authenticator.completion == nil { await Task.yield() }
+
+        authenticator.completion?(.success(URL(string: "vaultbreak://session-updated?result=approved")!))
+        await sut.waitUntilFinished()
+
+        XCTAssertEqual(sut.state, .idle)
+    }
+
+    func testDeniedCallbackLeavesPollToReportAccessDenied() async {
+        let authenticator = WebAuthenticationStarterStub()
+        let sut = DeviceSignInModel(
+            requestCode: { Self.code() },
+            poll: { _ in
+                try await Task.sleep(nanoseconds: 50_000_000)
+                throw DeviceAuthError.accessDenied
+            },
+            authenticator: authenticator
+        )
+        sut.start { _ in }
+        while authenticator.completion == nil { await Task.yield() }
+
+        authenticator.completion?(.success(URL(string: "vaultbreak://session-updated?result=denied")!))
+        await sut.waitUntilFinished()
+
+        XCTAssertEqual(sut.state, .failed(message: "Sign-in was denied."))
+    }
+
+    func testInvalidAuthenticationCallbackFailsAndStopsPolling() async {
+        let authenticator = WebAuthenticationStarterStub()
+        let sut = DeviceSignInModel(
+            requestCode: { Self.code() },
+            poll: { _ in
+                try await Task.sleep(nanoseconds: 5_000_000_000)
+                return DeviceTokenResponse(accessToken: "t", tokenType: "Bearer")
+            },
+            authenticator: authenticator
+        )
+        sut.start { _ in }
+        while authenticator.completion == nil { await Task.yield() }
+
+        authenticator.completion?(.success(URL(string: "vaultbreak://session-updated?result=unknown")!))
+
+        if case .failed(let message) = sut.state {
+            XCTAssertTrue(message.contains("invalid"))
+        } else {
+            XCTFail("expected invalid callback failure")
+        }
+    }
+
+    func testAuthenticationCancellationStopsPollingSilently() async {
+        let authenticator = WebAuthenticationStarterStub()
+        let sut = DeviceSignInModel(
+            requestCode: { Self.code() },
+            poll: { _ in
+                try await Task.sleep(nanoseconds: 5_000_000_000)
+                return DeviceTokenResponse(accessToken: "t", tokenType: "Bearer")
+            },
+            authenticator: authenticator
+        )
+        sut.start { _ in }
+        while authenticator.completion == nil { await Task.yield() }
+        let error = NSError(
+            domain: ASWebAuthenticationSessionErrorDomain,
+            code: ASWebAuthenticationSessionError.Code.canceledLogin.rawValue
+        )
+
+        authenticator.completion?(.failure(error))
+
+        XCTAssertEqual(sut.state, .idle)
+    }
+
+    func testAuthenticationErrorStopsPollingWithFailure() async {
+        let authenticator = WebAuthenticationStarterStub()
+        let sut = DeviceSignInModel(
+            requestCode: { Self.code() },
+            poll: { _ in
+                try await Task.sleep(nanoseconds: 5_000_000_000)
+                return DeviceTokenResponse(accessToken: "t", tokenType: "Bearer")
+            },
+            authenticator: authenticator
+        )
+        sut.start { _ in }
+        while authenticator.completion == nil { await Task.yield() }
+
+        authenticator.completion?(.failure(NSError(domain: "test", code: 1)))
+
+        if case .failed = sut.state {} else { XCTFail("expected failure") }
+    }
+
+    func testInvalidVerificationURLFailsWithoutPollingOrStartingSession() async {
+        let authenticator = WebAuthenticationStarterStub()
+        final class PollRecorder: @unchecked Sendable { var count = 0 }
+        let recorder = PollRecorder()
         let sut = DeviceSignInModel(
             requestCode: {
                 DeviceCodeResponse(
@@ -155,20 +258,17 @@ final class DeviceSignInModelTests: XCTestCase {
                 )
             },
             poll: { _ in
-                polled = true
+                recorder.count += 1
                 return DeviceTokenResponse(accessToken: "t", tokenType: "Bearer")
             },
-            openURL: { rec.urls.append($0) }
+            authenticator: authenticator
         )
-        sut.start { rec.sessions.append($0) }
+
+        sut.start { _ in }
         await sut.waitUntilFinished()
-        XCTAssertFalse(polled)
-        XCTAssertTrue(rec.urls.isEmpty)
-        XCTAssertTrue(rec.sessions.isEmpty)
-        if case .failed(let message) = sut.state {
-            XCTAssertTrue(message.contains("Invalid sign-in URL"))
-        } else {
-            XCTFail("expected failed, got \(sut.state)")
-        }
+
+        XCTAssertEqual(recorder.count, 0)
+        XCTAssertTrue(authenticator.startedURLs.isEmpty)
+        if case .failed = sut.state {} else { XCTFail("expected failure") }
     }
 }

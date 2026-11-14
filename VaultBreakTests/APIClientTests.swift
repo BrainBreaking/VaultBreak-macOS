@@ -380,6 +380,56 @@ final class APIClientTests: XCTestCase {
         try await client.deleteSecret(id: "sec-del")
     }
 
+    func testAccountDeletionAuthorizationUsesBearerAndReturnsSameOriginURL() async throws {
+        let payload = """
+        {"deletionUrl":"https://vault.example.com/account/delete?authorization=opaque","expiresIn":300,"account":{"email":"u@example.com"}}
+        """
+        MockSecretsURLProtocol.requestHandler = { request in
+            XCTAssertEqual(request.httpMethod, "POST")
+            XCTAssertEqual(request.url?.path, "/api/v1/account/deletion-authorization")
+            XCTAssertEqual(
+                request.value(forHTTPHeaderField: "Authorization"),
+                "Bearer test-bearer-token"
+            )
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 200,
+                httpVersion: nil,
+                headerFields: nil
+            )!
+            return (response, Data(payload.utf8))
+        }
+
+        let client = try APIClient(session: sampleSession(), urlSession: makeMockURLSession())
+        let url = try await client.accountDeletionAuthorizationURL()
+
+        XCTAssertEqual(url.host, "vault.example.com")
+        XCTAssertEqual(url.path, "/account/delete")
+    }
+
+    func testAccountDeletionAuthorizationRejectsCrossOriginURL() async throws {
+        let payload = """
+        {"deletionUrl":"https://attacker.example/account/delete?authorization=opaque"}
+        """
+        MockSecretsURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 200,
+                httpVersion: nil,
+                headerFields: nil
+            )!
+            return (response, Data(payload.utf8))
+        }
+
+        let client = try APIClient(session: sampleSession(), urlSession: makeMockURLSession())
+        do {
+            _ = try await client.accountDeletionAuthorizationURL()
+            XCTFail("Expected decoding failure")
+        } catch let error as APIClientError {
+            XCTAssertEqual(error, .decodingFailed)
+        }
+    }
+
     func testCreateSecret409Conflict() async throws {
         MockSecretsURLProtocol.requestHandler = { request in
             let response = HTTPURLResponse(

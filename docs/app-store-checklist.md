@@ -1,6 +1,6 @@
 # Mac App Store checklist (VaultBreak)
 
-Status: **planning** — distribution decision: **dual track (B)** confirmed (2026-10-16). Keep **Developer ID + notarization + GitHub Releases** for CLI Keychain sharing; MAS is a separate sandboxed build. See [signing-and-notarization.md](./signing-and-notarization.md).
+Status: **rejected; remediation in progress** — version 1.0 build 2 was rejected on 2026-10-27. Keep **Developer ID + notarization + GitHub Releases** for CLI Keychain sharing; MAS remains a separate sandboxed build. See [apple-review-remediation-2026-10-27.md](./apple-review-remediation-2026-10-27.md).
 
 Bundle ID: `com.brainbreaking.vaultbreak`  
 Min OS: macOS 13+
@@ -27,15 +27,15 @@ Recommendation: keep **direct distribution** as the primary path for power users
 
 - [x] Direct track: `VaultBreak/VaultBreak.entitlements` with sandbox **false** (CLI Keychain + SMAppService)
 - [x] MAS track: `VaultBreak/VaultBreakMAS.entitlements` with sandbox **true**, `network.client`, `keychain-access-groups`
-- [x] Wire entitlements in `project.yml` — Debug/Release → Direct; `ReleaseMAS` → MAS + `VAULTBREAK_MAS`
+- [x] Wire entitlements in `project.yml` — Debug/Release → Direct; `ReleaseMAS` → MAS + `APP_STORE`
 - [x] Confirm Hardened Runtime remains on for the MAS archive (ReleaseMAS inherits ENABLE_HARDENED_RUNTIME)
-- [x] SMAppService not required for MAS v1 (sandbox MAS uses in-app device auth; no login-item entitlement added)
+- [x] `SMAppService.mainApp` is controlled only by the explicit Open at Login toggle; no automatic registration occurs
 
 ### 2. Keychain — stop shelling out to `/usr/bin/security`
 
 `SystemKeychainSessionDataSource` prefers `Process` → `/usr/bin/security` for the Direct track (go-keyring ACL). **Sandbox blocks this on MAS.**
 
-- [x] MAS build (`VAULTBREAK_MAS`) defaults to **SecItem-only** (`SecItemKeychainSessionDataSource`) — no `Process`
+- [x] MAS build (`APP_STORE`) defaults to **SecItem-only** (`SecItemKeychainSessionDataSource`) — no `Process`
 - [x] Dual-track isolates CLI-created Keychain items: MAS does not share with Homebrew CLI
 - [x] Unit tests cover SecItem round-trip (`KeychainSessionStoreTests`)
 
@@ -61,7 +61,7 @@ Recommendation: keep **direct distribution** as the primary path for power users
 - [x] No private APIs; no unsigned nested binaries (MAS pkg upload accepted)
 - [x] ATS: HTTPS only to VaultBreak API (already the case for production)
 - [x] Privacy usage strings present (`NSFaceIDUsageDescription` already in `Info.plist`)
-- [x] Version / build numbers map to ASC (`MARKETING_VERSION` 1.0 / `CURRENT_PROJECT_VERSION` 2)
+- [x] Increment `CURRENT_PROJECT_VERSION` to 3 only after preview and production validation
 
 - [ ] Optional: CI job that archives MAS build (upload still manual or via API key)
 
@@ -89,7 +89,7 @@ Recommendation: keep **direct distribution** as the primary path for power users
 
 ## Demo account + Review Notes
 
-VaultBreak production login is **Google only** (no email/password form). Apple still needs Sign-in Information on the version page. Use a dedicated Google account for review.
+VaultBreak offers Google, Sign in with Apple, and password authentication on the web sign-in page. The Mac app presents that page inside `ASWebAuthenticationSession`. Apple still needs working Sign-in Information on the version page; keep the dedicated Google account available as the deterministic reviewer path.
 
 ### Create the demo account — **done** (2026-10-17)
 
@@ -115,20 +115,27 @@ Privacy: https://vault.brainbreaking.com/legal/privacy
 Support: ops@brainbreaking.com
 
 SIGN-IN (required)
-Web and device approval use Google Sign-In (no in-app password field).
+The Mac app presents device approval inside ASWebAuthenticationSession; it does not launch the default browser.
+The approval page offers Sign in with Apple, Google Sign-In, and password authentication.
 Demo Google account is in Sign-in Information (Username = Google email, Password = Google password).
 Please use that account only; do not require 2FA.
 
 MAC APP FLOW
 1. Launch VaultBreak — icon appears in the menu bar (LSUIElement).
 2. Open the menu → Sign in…
-3. Browser opens a VaultBreak device-authorization URL.
+3. A secure in-app authentication sheet opens a VaultBreak device-authorization URL.
 4. Sign in with the demo Google account if prompted, then Approve the device.
 5. Return to the menu bar app — it should show signed-in (email).
 6. Open Secrets (popover or mini-console) — demo secrets are pre-seeded.
 7. Unlock with Touch ID / Mac password if prompted (local only; we never receive biometrics).
 8. Management opens the web overview in the browser.
 9. Log out from the menu to clear the session.
+
+OPEN AT LOGIN
+Open at Login defaults off. VaultBreak registers the login item only after the reviewer explicitly enables the menu toggle. Turning the toggle off unregisters it.
+
+DELETE ACCOUNT
+After sign-in, choose Delete Account… in the menu. VaultBreak opens a secure in-app sheet bound to the signed-in Mac account. Type the displayed confirmation phrase to permanently delete the account. Use only a disposable account for this check; do not delete the seeded reviewer account.
 
 No CLI is required for this App Store build.
 No in-app purchases.
@@ -148,11 +155,13 @@ Sandbox build uses in-app device auth only (no shared Keychain with Homebrew CLI
 
 ## Submit status
 
-- [x] Submit for Review — version 1.0 build **2** `WAITING_FOR_REVIEW` (2026-10-19 via ASC API; submission `4dea5873-…`; includes menu-bar contrast fix)
+- [x] Version 1.0 build **2** submitted on 2026-10-19
+- [x] Submission `4dea5873-…` rejected with unresolved issues on 2026-10-27
+- [ ] Validate preview and production remediation flows
+- [ ] Upload and attach build **3**, update metadata/review notes, and resubmit
 
 ## Related docs
 
 - [asc-setup-steps.md](./asc-setup-steps.md) — App Store Connect click-path (Bundle ID → listing)
 - [signing-and-notarization.md](./signing-and-notarization.md) — direct distribution
 - README Distribution section — GitHub Releases URL
-

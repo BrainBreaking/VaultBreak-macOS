@@ -142,7 +142,7 @@ private final class MockHandoffsAPIClient: HandoffsAPIClient, @unchecked Sendabl
     }
 }
 
-private final class MockHandoffPollingCancellable: HandoffPollingCancellable {
+private final class MockHandoffPollingCancellable: HandoffPollingCancellable, @unchecked Sendable {
     private(set) var cancelled = false
     var onCancel: (@Sendable () -> Void)?
 
@@ -152,7 +152,7 @@ private final class MockHandoffPollingCancellable: HandoffPollingCancellable {
     }
 }
 
-private final class MockHandoffPollingScheduler: HandoffPollingScheduler {
+private final class MockHandoffPollingScheduler: HandoffPollingScheduler, @unchecked Sendable {
     private(set) var startCount = 0
     private(set) var cancelCount = 0
     private(set) var lastInterval: TimeInterval?

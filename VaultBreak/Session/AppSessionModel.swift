@@ -66,6 +66,10 @@ final class AppSessionModel: ObservableObject {
             reload()
         case .open:
             onOpenVault?()
+        case .accountDeleted:
+            // Destructive callbacks are accepted only by the active,
+            // state-bound ASWebAuthenticationSession in DeleteAccountModel.
+            break
         case nil:
             break
         }

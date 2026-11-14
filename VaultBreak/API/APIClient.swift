@@ -97,6 +97,25 @@ struct APIClient: Sendable {
         try await performDELETE(path: path)
     }
 
+    /// Creates a short-lived, single-use web deletion flow bound to the
+    /// bearer-token member. The bearer token is never placed in the URL.
+    func accountDeletionAuthorizationURL() async throws -> URL {
+        let data = try await performPOST(
+            path: "/api/v1/account/deletion-authorization",
+            body: Data("{}".utf8)
+        )
+        struct Response: Decodable { let deletionUrl: String }
+        guard let response = try? JSONDecoder().decode(Response.self, from: data),
+              let url = URL(string: response.deletionUrl),
+              url.scheme?.lowercased() == "https",
+              url.host?.lowercased() == credentials.baseURL.host?.lowercased(),
+              url.path == "/account/delete"
+        else {
+            throw APIClientError.decodingFailed
+        }
+        return url
+    }
+
     func listHandoffs() async throws -> [Handoff] {
         let data = try await performGET(path: "/api/v1/handoffs")
         let decoder = Self.makeJSONDecoder()

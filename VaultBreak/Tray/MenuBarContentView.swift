@@ -8,7 +8,11 @@ struct MenuBarContentView: View {
     @StateObject private var popoverViewModel: PopoverSecretsViewModel
     @State private var popoverVisible = false
     @State private var appIsActive = NSApplication.shared.isActive
-    @StateObject private var signIn = DeviceSignInModel(openURL: { NSWorkspace.shared.open($0) })
+    @State private var loginItemEnabled = LoginItemService.isEnabled
+    @State private var loginItemError: String?
+    @State private var quitButtonHovered = false
+    @StateObject private var signIn = DeviceSignInModel()
+    @StateObject private var deleteAccount = DeleteAccountModel()
 
     init(model: AppSessionModel, lockState: VaultLockState, handoffModel: HandoffAttentionModel) {
         self.model = model
@@ -20,69 +24,60 @@ struct MenuBarContentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             if model.isSignedIn {
-                if let label = model.accountLabel {
-                    Text(label)
-                        .font(.caption)
-                        .foregroundStyle(BrainBreakingTheme.muted)
-                        .padding(.horizontal, 12)
-                        .padding(.top, 10)
+                HStack(alignment: .top, spacing: 12) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("VaultBreak")
+                            .font(.headline)
+                            .foregroundStyle(BrainBreakingTheme.sand)
+                        Text(signedInDescription)
+                            .font(.caption)
+                            .foregroundStyle(BrainBreakingTheme.muted)
+                            .lineLimit(1)
+                            .truncationMode(.middle)
+                            .accessibilityLabel(signedInDescription)
+                    }
+                    Spacer(minLength: 8)
+                    Menu {
+                        Button("Manage Account…") {
+                            NSWorkspace.shared.open(VaultBreakWeb.overviewURL)
+                        }
+                        Button("Sign Out…") {
+                            confirmAndLogOut()
+                        }
+                        Divider()
+                        Button("Delete Account…", role: .destructive) {
+                            startAccountDeletion()
+                        }
+                        .disabled(
+                            deleteAccount.state == .authorizing || deleteAccount.state == .presenting
+                        )
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                            .font(.title3)
+                    }
+                    .menuStyle(.borderlessButton)
+                    .fixedSize()
+                    .help("Account actions")
+                    .accessibilityLabel("Account menu")
                 }
-                PopoverView(viewModel: popoverViewModel, lockState: lockState, handoffModel: handoffModel)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
                 Divider().overlay(BrainBreakingTheme.border)
-                Button {
-                    MiniConsolePresenter.open(sessionModel: model, lockState: lockState)
-                } label: {
-                    Text("Open Vault…")
-                        .foregroundStyle(BrainBreakingTheme.sand)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .buttonStyle(.plain)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                if lockState.isLocked {
-                    Button {
-                        Task { await lockState.unlock() }
-                    } label: {
-                        Text("Unlock Vault…")
-                            .foregroundStyle(BrainBreakingTheme.sand)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                PopoverView(
+                    viewModel: popoverViewModel,
+                    lockState: lockState,
+                    handoffModel: handoffModel,
+                    onOpenVault: {
+                        MiniConsolePresenter.open(sessionModel: model, lockState: lockState)
                     }
-                    .buttonStyle(.plain)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                } else {
-                    Button {
-                        lockState.lock()
-                        popoverViewModel.clearLoadedSecrets()
-                    } label: {
-                        Text("Lock Vault")
-                            .foregroundStyle(BrainBreakingTheme.sand)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .buttonStyle(.plain)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
+                )
+                if case .failed(let message) = deleteAccount.state {
+                    Text(message)
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                        .padding(.horizontal, 12)
+                        .padding(.bottom, 8)
                 }
-                Button {
-                    NSWorkspace.shared.open(VaultBreakWeb.overviewURL)
-                } label: {
-                    Text("Management")
-                        .foregroundStyle(BrainBreakingTheme.sand)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .buttonStyle(.plain)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                Button {
-                    confirmAndLogOut()
-                } label: {
-                    Text("Log out…")
-                        .foregroundStyle(BrainBreakingTheme.muted)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .buttonStyle(.plain)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
             } else {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("VaultBreak")
@@ -124,28 +119,84 @@ struct MenuBarContentView: View {
                 .padding(14)
             }
             Divider().overlay(BrainBreakingTheme.border)
-            Toggle("Open at Login", isOn: Binding(
-                get: { LoginItemService.isEnabled },
-                set: { LoginItemService.isEnabled = $0 }
-            ))
-            .toggleStyle(.switch)
-            .tint(BrainBreakingTheme.accent)
-            .foregroundStyle(BrainBreakingTheme.sand)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 6)
-            Button("Quit") {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing: 10) {
+                    Image(systemName: "arrow.clockwise.circle.fill")
+                        .font(.title2)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(BrainBreakingTheme.sand, BrainBreakingTheme.accent)
+                        .accessibilityHidden(true)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("Launch at Login")
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(BrainBreakingTheme.sand)
+                        Text("Start VaultBreak when you log in to this Mac.")
+                            .font(.caption)
+                            .foregroundStyle(BrainBreakingTheme.muted)
+                    }
+                    Spacer(minLength: 8)
+                    Toggle("Launch at Login", isOn: Binding(
+                        get: { loginItemEnabled },
+                        set: { requestedValue in
+                            if LoginItemService.setEnabled(requestedValue) {
+                                loginItemEnabled = requestedValue
+                                loginItemError = nil
+                            } else {
+                                loginItemEnabled = LoginItemService.isEnabled
+                                loginItemError = "Could not change the login setting. Try again."
+                            }
+                        }
+                    ))
+                    .labelsHidden()
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
+                    .tint(BrainBreakingTheme.accent)
+                    .accessibilityLabel("Launch at Login")
+                    .accessibilityHint("Starts VaultBreak automatically when you log in to this Mac")
+                }
+                if let loginItemError {
+                    Label(loginItemError, systemImage: "exclamationmark.triangle.fill")
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
+            }
+            .padding(10)
+            .background(BrainBreakingTheme.surface, in: RoundedRectangle(cornerRadius: 10))
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            Button {
                 NSApplication.shared.terminate(nil)
+            } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: "power")
+                        .font(.caption.weight(.semibold))
+                    Text("Quit VaultBreak")
+                        .font(.subheadline)
+                    Spacer()
+                    Text("⌘Q")
+                        .font(.caption.monospaced())
+                        .foregroundStyle(BrainBreakingTheme.muted)
+                }
+                .foregroundStyle(BrainBreakingTheme.sand)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 8)
+                .background(
+                    (quitButtonHovered ? BrainBreakingTheme.surface : BrainBreakingTheme.surface.opacity(0.45)),
+                    in: RoundedRectangle(cornerRadius: 8)
+                )
             }
             .buttonStyle(.plain)
-            .foregroundStyle(BrainBreakingTheme.muted)
             .keyboardShortcut("q")
-            .padding(.horizontal, 12)
+            .onHover { quitButtonHovered = $0 }
+            .accessibilityHint("Closes VaultBreak")
+            .padding(.horizontal, 10)
             .padding(.bottom, 10)
-            .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .frame(width: 340)
         .background(BrainBreakingTheme.ink)
+        .environment(\.colorScheme, .dark)
         .onAppear {
+            loginItemEnabled = LoginItemService.isEnabled
             popoverVisible = true
             updateHandoffPolling()
         }
@@ -192,6 +243,23 @@ struct MenuBarContentView: View {
             fail.addButton(withTitle: "OK")
             fail.runModal()
         }
+    }
+
+    private var signedInDescription: String {
+        guard let label = model.accountLabel, label != "Signed in" else {
+            return "Signed in"
+        }
+        return "Signed in as \(label)"
+    }
+
+    private func startAccountDeletion() {
+        deleteAccount.start(
+            authorizing: {
+                let client = try model.makeAPIClient()
+                return try await client.accountDeletionAuthorizationURL()
+            },
+            clearingSession: { try model.clearSession() }
+        )
     }
 
     private func updateHandoffPolling() {

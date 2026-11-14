@@ -18,6 +18,42 @@ final class VaultBreakURLParserTests: XCTestCase {
             VaultBreakURLParser.action(for: URL(string: "vaultbreak://session-updated")!),
             .sessionUpdated
         )
+        XCTAssertEqual(
+            VaultBreakURLParser.action(for: URL(string: "vaultbreak://session-updated?result=approved")!),
+            .sessionUpdated
+        )
+    }
+
+    func testAccountDeletedAction() {
+        XCTAssertEqual(
+            VaultBreakURLParser.action(for: URL(string: "vaultbreak://account-deleted")!),
+            .accountDeleted
+        )
+    }
+
+    func testAuthenticationResultRequiresKnownResultValue() {
+        XCTAssertEqual(
+            VaultBreakURLParser.authenticationResult(
+                for: URL(string: "vaultbreak://session-updated?result=approved")!
+            ),
+            .approved
+        )
+        XCTAssertEqual(
+            VaultBreakURLParser.authenticationResult(
+                for: URL(string: "vaultbreak://session-updated?result=denied")!
+            ),
+            .denied
+        )
+        XCTAssertNil(
+            VaultBreakURLParser.authenticationResult(
+                for: URL(string: "vaultbreak://session-updated?result=unknown")!
+            )
+        )
+        XCTAssertNil(
+            VaultBreakURLParser.authenticationResult(
+                for: URL(string: "vaultbreak://session-updated")!
+            )
+        )
     }
 
     func testCaseInsensitiveSchemeAndHost() {

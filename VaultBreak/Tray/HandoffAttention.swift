@@ -38,7 +38,7 @@ private final class HandoffPollingTask: HandoffPollingCancellable, @unchecked Se
 
 @MainActor
 final class HandoffAttentionModel: ObservableObject {
-    static let defaultPollInterval: TimeInterval = 60
+    nonisolated static let defaultPollInterval: TimeInterval = 60
 
     @Published private(set) var pendingHandoffs: [Handoff] = []
     @Published private(set) var needsAttention: Bool = false

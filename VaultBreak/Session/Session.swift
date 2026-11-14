@@ -48,7 +48,9 @@ struct Session: Codable, Equatable {
         let decoder = JSONDecoder()
         // Go's encoding/json emits RFC3339 with fractional seconds (e.g. …58.443571Z).
         // Foundation's .iso8601 strategy rejects those and would leave the tray signed out.
-        decoder.dateDecodingStrategy = .custom(decodeISO8601Date)
+        decoder.dateDecodingStrategy = .custom { decoder in
+            try Self.decodeISO8601Date(from: decoder)
+        }
         let session = try decoder.decode(Session.self, from: data)
         guard session.version == 1 else {
             throw SessionError.unsupportedVersion(session.version)
