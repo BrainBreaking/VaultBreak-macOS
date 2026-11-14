@@ -117,6 +117,23 @@ final class KeychainSessionStoreTests: XCTestCase {
         XCTAssertNil(source.loadSessionData())
     }
 
+    func testSecItemDataSourceRoundTripsAndDeletes() throws {
+        let source = SecItemKeychainSessionDataSource(
+            service: "com.brainbreaking.vaultbreak.tests.\(UUID().uuidString)",
+            account: "session"
+        )
+        defer { _ = source.deleteSessionData() }
+        let first = Data("first".utf8)
+        let second = Data("second".utf8)
+
+        XCTAssertEqual(source.saveSessionData(first), errSecSuccess)
+        XCTAssertEqual(source.loadSessionData(), first)
+        XCTAssertEqual(source.saveSessionData(second), errSecSuccess)
+        XCTAssertEqual(source.loadSessionData(), second)
+        XCTAssertEqual(source.deleteSessionData(), errSecSuccess)
+        XCTAssertNil(source.loadSessionData())
+    }
+
     func testDecodeGoKeyringPayloadLeavesPlainJSONUntouched() {
         let json = Data(#"{"version":1}"#.utf8)
         XCTAssertEqual(KeychainSessionStore.decodeGoKeyringPayload(json), json)

@@ -1,4 +1,5 @@
 import Foundation
+import AuthenticationServices
 
 /// Drives the tray "Sign in…" device-authorization flow.
 @MainActor
@@ -14,9 +15,10 @@ final class DeviceSignInModel: ObservableObject {
 
     private let requestCode: @Sendable () async throws -> DeviceCodeResponse
     private let poll: @Sendable (DeviceCodeResponse) async throws -> DeviceTokenResponse
-    private let openURL: (URL) -> Void
+    private let authenticator: WebAuthenticationStarting
     private let apiUrl: String
     private var task: Task<Void, Never>?
+    private var authentication: WebAuthenticationCancelling?
     private var generation = 0
 
     var isBusy: Bool {
@@ -29,24 +31,24 @@ final class DeviceSignInModel: ObservableObject {
     init(
         client: DeviceAuthClient = DeviceAuthClient(),
         apiUrl: String = VaultBreakWeb.baseURL.absoluteString,
-        openURL: @escaping (URL) -> Void
+        authenticator: WebAuthenticationStarting? = nil
     ) {
         self.requestCode = { try await client.requestDeviceCode() }
         self.poll = { try await client.pollForToken(code: $0) }
         self.apiUrl = apiUrl
-        self.openURL = openURL
+        self.authenticator = authenticator ?? WebAuthenticationSessionPresenter()
     }
 
     init(
         requestCode: @escaping @Sendable () async throws -> DeviceCodeResponse,
         poll: @escaping @Sendable (DeviceCodeResponse) async throws -> DeviceTokenResponse,
         apiUrl: String = VaultBreakWeb.baseURL.absoluteString,
-        openURL: @escaping (URL) -> Void
+        authenticator: WebAuthenticationStarting
     ) {
         self.requestCode = requestCode
         self.poll = poll
         self.apiUrl = apiUrl
-        self.openURL = openURL
+        self.authenticator = authenticator
     }
 
     /// Starts the flow; ignored while a flow is already running.
@@ -64,6 +66,8 @@ final class DeviceSignInModel: ObservableObject {
         generation += 1
         task?.cancel()
         task = nil
+        authentication?.cancel()
+        authentication = nil
         state = .idle
     }
 
@@ -79,19 +83,23 @@ final class DeviceSignInModel: ObservableObject {
             guard gen == generation else { return }
             state = .waiting(userCode: code.userCode)
             let target = code.verificationUriComplete ?? code.verificationUri
-            guard let url = URL(string: target), url.scheme != nil else {
-                state = .failed(message: "Invalid sign-in URL. Try again.")
-                return
+            guard let url = URL(string: target), url.scheme?.lowercased() == "https" else {
+                throw WebAuthenticationSessionStartError.couldNotStart
             }
-            openURL(url)
+            authentication = try authenticator.start(
+                url: url,
+                callbackScheme: VaultBreakURLParser.callbackScheme
+            ) { [weak self] result in
+                self?.handleAuthenticationResult(result, generation: gen)
+            }
             let token = try await poll(code)
             try Task.checkCancellation()
             guard gen == generation else { return }
             let session = Session(apiUrl: apiUrl, token: token.accessToken, updatedAt: Date())
             try apply(session)
-            // Cancel may have raced after apply started; do not overwrite cancel's idle.
-            guard gen == generation else { return }
             state = .idle
+            authentication?.cancel()
+            authentication = nil
         } catch is CancellationError {
             finishCancelled(gen)
         } catch let error as URLError where error.code == .cancelled {
@@ -101,13 +109,50 @@ final class DeviceSignInModel: ObservableObject {
                 finishCancelled(gen)
             } else if gen == generation {
                 state = .failed(message: Self.message(for: error))
+                authentication?.cancel()
+                authentication = nil
             }
         }
         if gen == generation { task = nil }
     }
 
     private func finishCancelled(_ gen: Int) {
-        if gen == generation { state = .idle }
+        if gen == generation {
+            authentication?.cancel()
+            authentication = nil
+            state = .idle
+        }
+    }
+
+    private func handleAuthenticationResult(_ result: Result<URL, Error>, generation gen: Int) {
+        guard gen == generation, isBusy else { return }
+        switch result {
+        case .success(let callback):
+            guard VaultBreakURLParser.authenticationResult(for: callback) != nil else {
+                failAuthentication(message: "The sign-in callback was invalid.")
+                return
+            }
+            // Device-code polling remains authoritative for the access token.
+        case .failure(let error) where Self.isAuthenticationCancellation(error):
+            cancel()
+        case .failure:
+            failAuthentication(message: "The secure sign-in session failed. Try again.")
+        }
+    }
+
+    private func failAuthentication(message: String) {
+        generation += 1
+        task?.cancel()
+        task = nil
+        authentication?.cancel()
+        authentication = nil
+        state = .failed(message: message)
+    }
+
+    private static func isAuthenticationCancellation(_ error: Error) -> Bool {
+        let error = error as NSError
+        return error.domain == ASWebAuthenticationSessionErrorDomain
+            && error.code == ASWebAuthenticationSessionError.Code.canceledLogin.rawValue
     }
 
     static func message(for error: Error) -> String {

@@ -25,17 +25,23 @@
 		3803CC1776CB5B443EE50090 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */; };
 		38D9F52E22E7760A0742CB03 /* VaultBreakAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */; };
 		48533A3353CE23C85B2C22E2 /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56E619B392A094EF0A320CA /* PopoverView.swift */; };
+		558732F6936BAB8935E63373 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFB929BE32CC9628AD7B5522 /* Assets.xcassets */; };
 		5A0B880E3A5EE764D3E76304 /* SessionDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C5226294E378976988ACEC /* SessionDisplay.swift */; };
 		64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */; };
 		653BED3B185B9AD60D205306 /* VaultBreakURLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9734949079C79DA912F893 /* VaultBreakURLParserTests.swift */; };
+		6CCBC85EF7CBE273E053EDBC /* WebAuthenticationSessionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 856E091BDB7CC761A33BEA46 /* WebAuthenticationSessionPresenter.swift */; };
 		701828197AF19C87EAD6CF94 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F22ACDADF3E79D391A7CB6 /* Clipboard.swift */; };
 		76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */; };
+		7C8CB50DBF49A5B54DCB60A0 /* LoginItemServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B0CFAA286E0C1A6E8EDA99 /* LoginItemServiceTests.swift */; };
 		80240FB00BC4C64018C88726 /* VaultLockState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 814DAB9CB23E797DC8E85073 /* VaultLockState.swift */; };
 		830735948930BBFB3F9A717A /* ConsoleSecretsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37068D0728ADF651C433A888 /* ConsoleSecretsViewModel.swift */; };
+		8C67698EA32A2D60074624CA /* DeleteAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29C84BF31BB60FC9BFB21E /* DeleteAccountModel.swift */; };
+		9182112F069623084DF6D980 /* DockIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 8516EEBF9FE24881FBDA2A79 /* DockIcon.icns */; };
 		9ADB46AB6404385CD48A523E /* HandoffAttention.swift in Sources */ = {isa = PBXBuildFile; fileRef = E880967F6633C991F2888C57 /* HandoffAttention.swift */; };
 		A676F231C1E61E767528AEE2 /* PopoverSecretsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC43685CAE6686236C4739E8 /* PopoverSecretsViewModel.swift */; };
 		AAF8103488EB6C78B42D51CA /* LoginItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4452A471EE209C3B97D1DC57 /* LoginItemService.swift */; };
 		AC3D4CD63DAEC5358A9FA34C /* HandoffAttentionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0893AAA35B784A7AF24701 /* HandoffAttentionTests.swift */; };
+		AEC33F0A257665F4AAE116D6 /* DeleteAccountModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5A89B4017FF9E2F6664DF3 /* DeleteAccountModelTests.swift */; };
 		C16020EBAFF9258A8AC3446B /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF11F19B564E71F964752DC3 /* Models.swift */; };
 		C5CA068ABE837731B4D51108 /* MiniConsoleWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345ED106CD2F438EAD723729 /* MiniConsoleWindow.swift */; };
 		CC630FC708E6031A4C6D5131 /* ConsoleHandoffsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471241C59EEB2B40EB3A67CF /* ConsoleHandoffsViewModel.swift */; };
@@ -63,6 +69,7 @@
 /* Begin PBXFileReference section */
 		020EB5A45B3ADF800E6A869E /* AppSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionModel.swift; sourceTree = "<group>"; };
 		065D2AD6CAC196AAAFAB1E07 /* SecretsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecretsListView.swift; sourceTree = "<group>"; };
+		0A29C84BF31BB60FC9BFB21E /* DeleteAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountModel.swift; sourceTree = "<group>"; };
 		0BDC1EEFA8C15E6FD4C9C7F9 /* DeviceSignInModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSignInModel.swift; sourceTree = "<group>"; };
 		152A9461F827B590D66D6FBE /* VaultBreakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaultBreakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		19BAA16D28F415A691538BE1 /* MiniConsoleContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +77,7 @@
 		1A9734949079C79DA912F893 /* VaultBreakURLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakURLParserTests.swift; sourceTree = "<group>"; };
 		248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCodecTests.swift; sourceTree = "<group>"; };
 		24CE239EBC0C8C6A0B9D6DA5 /* VaultBreakURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakURL.swift; sourceTree = "<group>"; };
+		29B0CFAA286E0C1A6E8EDA99 /* LoginItemServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemServiceTests.swift; sourceTree = "<group>"; };
 		2F39DBAADCE6A87BB7368216 /* KeychainSessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStore.swift; sourceTree = "<group>"; };
 		345ED106CD2F438EAD723729 /* MiniConsoleWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniConsoleWindow.swift; sourceTree = "<group>"; };
 		37068D0728ADF651C433A888 /* ConsoleSecretsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleSecretsViewModel.swift; sourceTree = "<group>"; };
@@ -79,12 +87,15 @@
 		471241C59EEB2B40EB3A67CF /* ConsoleHandoffsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleHandoffsViewModel.swift; sourceTree = "<group>"; };
 		484CEB3E0382BFA96B5A1F8C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		489A7EBDDD56C89FE7EBBF9A /* ClipboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardTests.swift; sourceTree = "<group>"; };
+		5A5A89B4017FF9E2F6664DF3 /* DeleteAccountModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountModelTests.swift; sourceTree = "<group>"; };
 		620661CFDB0E55988F7525DA /* VaultLockStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultLockStateTests.swift; sourceTree = "<group>"; };
 		69C5226294E378976988ACEC /* SessionDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDisplay.swift; sourceTree = "<group>"; };
 		6A0893AAA35B784A7AF24701 /* HandoffAttentionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffAttentionTests.swift; sourceTree = "<group>"; };
 		701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakApp.swift; sourceTree = "<group>"; };
 		752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSessionModelTests.swift; sourceTree = "<group>"; };
 		814DAB9CB23E797DC8E85073 /* VaultLockState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultLockState.swift; sourceTree = "<group>"; };
+		8516EEBF9FE24881FBDA2A79 /* DockIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DockIcon.icns; sourceTree = "<group>"; };
+		856E091BDB7CC761A33BEA46 /* WebAuthenticationSessionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthenticationSessionPresenter.swift; sourceTree = "<group>"; };
 		8AF9B6E04BDA29852C9E1AFD /* PopoverSecretsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverSecretsViewModelTests.swift; sourceTree = "<group>"; };
 		8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakAppDelegate.swift; sourceTree = "<group>"; };
 		8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainSessionStoreTests.swift; sourceTree = "<group>"; };
@@ -94,6 +105,7 @@
 		C1467BC2D7DCF7A88974C607 /* DeviceSignInModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceSignInModelTests.swift; sourceTree = "<group>"; };
 		CBB5D9A868A1338029D6369E /* VaultBreakWebTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultBreakWebTests.swift; sourceTree = "<group>"; };
 		CC43685CAE6686236C4739E8 /* PopoverSecretsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverSecretsViewModel.swift; sourceTree = "<group>"; };
+		D625A65347D4401B7AB7128C /* VaultBreak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VaultBreak.entitlements; sourceTree = "<group>"; };
 		D6C936A8351A6C315D7F65DA /* DeviceAuthClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAuthClientTests.swift; sourceTree = "<group>"; };
 		DBF5C8A35F8CD99C1E537818 /* DeviceAuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceAuthModels.swift; sourceTree = "<group>"; };
 		DDFB24E75C05C5E959E6F525 /* HandoffsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffsListView.swift; sourceTree = "<group>"; };
@@ -105,12 +117,15 @@
 		E880967F6633C991F2888C57 /* HandoffAttention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffAttention.swift; sourceTree = "<group>"; };
 		ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		ED99A825D8C557D626E5C118 /* BrainBreakingTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainBreakingTheme.swift; sourceTree = "<group>"; };
+		EDD49FAD50825A39B2532C23 /* VaultBreakMAS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VaultBreakMAS.entitlements; sourceTree = "<group>"; };
+		EFB929BE32CC9628AD7B5522 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		094294C8AC58C309BC124812 /* Tray */ = {
 			isa = PBXGroup;
 			children = (
+				0A29C84BF31BB60FC9BFB21E /* DeleteAccountModel.swift */,
 				0BDC1EEFA8C15E6FD4C9C7F9 /* DeviceSignInModel.swift */,
 				E880967F6633C991F2888C57 /* HandoffAttention.swift */,
 				19D06A53FEE89631E4C85B7D /* MenuBarContentView.swift */,
@@ -137,6 +152,14 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		4FF4F3FC539974C590A19CFF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8516EEBF9FE24881FBDA2A79 /* DockIcon.icns */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		554EE4CB45FF296D0CE18968 /* Console */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,10 +179,12 @@
 				ECE4681A3F3C62B62F6437C4 /* APIClientTests.swift */,
 				752392FBBE82E45BB16BEA07 /* AppSessionModelTests.swift */,
 				489A7EBDDD56C89FE7EBBF9A /* ClipboardTests.swift */,
+				5A5A89B4017FF9E2F6664DF3 /* DeleteAccountModelTests.swift */,
 				D6C936A8351A6C315D7F65DA /* DeviceAuthClientTests.swift */,
 				C1467BC2D7DCF7A88974C607 /* DeviceSignInModelTests.swift */,
 				6A0893AAA35B784A7AF24701 /* HandoffAttentionTests.swift */,
 				8D5319865E36C63937A54061 /* KeychainSessionStoreTests.swift */,
+				29B0CFAA286E0C1A6E8EDA99 /* LoginItemServiceTests.swift */,
 				8AF9B6E04BDA29852C9E1AFD /* PopoverSecretsViewModelTests.swift */,
 				248CBF82AEDFD5BC40623F3E /* SessionCodecTests.swift */,
 				40DAC8AF8752A10050D247BA /* SessionDisplayTests.swift */,
@@ -207,12 +232,16 @@
 		C15F01C9A9D7C247A3AA3356 /* VaultBreak */ = {
 			isa = PBXGroup;
 			children = (
+				EFB929BE32CC9628AD7B5522 /* Assets.xcassets */,
 				ACAB0EC61472FFAF9D81C1C2 /* Info.plist */,
+				D625A65347D4401B7AB7128C /* VaultBreak.entitlements */,
 				701DBAEF9C6C33915498DEDA /* VaultBreakApp.swift */,
+				EDD49FAD50825A39B2532C23 /* VaultBreakMAS.entitlements */,
 				AFB6631BBF9410F6C42B0AE6 /* API */,
 				DF7BA2D4919FDB2E7E6872E2 /* Application */,
 				554EE4CB45FF296D0CE18968 /* Console */,
 				2E55140DCBB7EB1F735ECB14 /* Lock */,
+				4FF4F3FC539974C590A19CFF /* Resources */,
 				B35A2EE080D589E18C282C74 /* Session */,
 				42F1A434DADF7326AFDD135F /* Support */,
 				094294C8AC58C309BC124812 /* Tray */,
@@ -234,6 +263,7 @@
 			children = (
 				4452A471EE209C3B97D1DC57 /* LoginItemService.swift */,
 				8B707EC870DD0F443C0B946E /* VaultBreakAppDelegate.swift */,
+				856E091BDB7CC761A33BEA46 /* WebAuthenticationSessionPresenter.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -264,6 +294,7 @@
 			buildConfigurationList = E14B830510C4AB07EBA093AF /* Build configuration list for PBXNativeTarget "VaultBreak" */;
 			buildPhases = (
 				0052BF795C8005EDFBFEDB5C /* Sources */,
+				A3726198AD183ACC329B68FA /* Resources */,
 			);
 			buildRules = (
 			);
@@ -307,6 +338,18 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		A3726198AD183ACC329B68FA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				558732F6936BAB8935E63373 /* Assets.xcassets in Resources */,
+				9182112F069623084DF6D980 /* DockIcon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0052BF795C8005EDFBFEDB5C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -318,6 +361,7 @@
 				701828197AF19C87EAD6CF94 /* Clipboard.swift in Sources */,
 				CC630FC708E6031A4C6D5131 /* ConsoleHandoffsViewModel.swift in Sources */,
 				830735948930BBFB3F9A717A /* ConsoleSecretsViewModel.swift in Sources */,
+				8C67698EA32A2D60074624CA /* DeleteAccountModel.swift in Sources */,
 				144C6D3BB74A39048EF0F44D /* DeviceAuthClient.swift in Sources */,
 				CDCB1281798140690146F87C /* DeviceAuthModels.swift in Sources */,
 				2A377F52CF69EBF7092A14C4 /* DeviceSignInModel.swift in Sources */,
@@ -340,6 +384,7 @@
 				E351BAD9ED34C206CA04C479 /* VaultBreakURL.swift in Sources */,
 				F5ACFB737A67FB670F2507E8 /* VaultBreakWeb.swift in Sources */,
 				80240FB00BC4C64018C88726 /* VaultLockState.swift in Sources */,
+				6CCBC85EF7CBE273E053EDBC /* WebAuthenticationSessionPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,10 +395,12 @@
 				3803CC1776CB5B443EE50090 /* APIClientTests.swift in Sources */,
 				2FD0637034C8335BC7F5456E /* AppSessionModelTests.swift in Sources */,
 				F1932B9C3A5216D23F564F90 /* ClipboardTests.swift in Sources */,
+				AEC33F0A257665F4AAE116D6 /* DeleteAccountModelTests.swift in Sources */,
 				DAB62F04AB5F83FFB72E540C /* DeviceAuthClientTests.swift in Sources */,
 				2FEB60C3E989EA076206C01C /* DeviceSignInModelTests.swift in Sources */,
 				AC3D4CD63DAEC5358A9FA34C /* HandoffAttentionTests.swift in Sources */,
 				64191637642B9E290BA936C8 /* KeychainSessionStoreTests.swift in Sources */,
+				7C8CB50DBF49A5B54DCB60A0 /* LoginItemServiceTests.swift in Sources */,
 				03CA5AF2D0B6BE722B9471DD /* PopoverSecretsViewModelTests.swift in Sources */,
 				76A5035504291F51C1DD4BA6 /* SessionCodecTests.swift in Sources */,
 				ED1BCDCFC914F532B6910F0F /* SessionDisplayTests.swift in Sources */,
@@ -391,19 +438,104 @@
 			};
 			name = Debug;
 		};
-		67CF93C3F2DDC08726A96F45 /* Debug */ = {
+		5A35DA9E50CFE543B5D56835 /* ReleaseMAS */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VaultBreak/VaultBreakMAS.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 3;
+				ENABLE_APP_SANDBOX = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VaultBreak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = VaultBreak;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_LSUIElement = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brainbreaking.vaultbreak;
+				PRODUCT_NAME = VaultBreak;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) APP_STORE";
+			};
+			name = ReleaseMAS;
+		};
+		638B4396A7E2F6AB72693B69 /* ReleaseMAS */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = ReleaseMAS;
+		};
+		67CF93C3F2DDC08726A96F45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VaultBreak/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = VaultBreak;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.brainbreaking.vaultbreak;
 				PRODUCT_NAME = VaultBreak;
 				SDKROOT = macosx;
@@ -478,20 +610,41 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VaultBreak/VaultBreak.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = VaultBreak/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = VaultBreak;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_LSUIElement = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.brainbreaking.vaultbreak;
 				PRODUCT_NAME = VaultBreak;
 				SDKROOT = macosx;
 			};
 			name = Release;
+		};
+		BA331814741CEE86B3213BDF /* ReleaseMAS */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.brainbreaking.vaultbreak.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VaultBreak.app/Contents/MacOS/VaultBreak";
+			};
+			name = ReleaseMAS;
 		};
 		C4FA1DEE77BA3D2992304A99 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -575,6 +728,7 @@
 			buildConfigurations = (
 				7799EFCAD6329E3FE57BB5E6 /* Debug */,
 				C4FA1DEE77BA3D2992304A99 /* Release */,
+				638B4396A7E2F6AB72693B69 /* ReleaseMAS */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -584,6 +738,7 @@
 			buildConfigurations = (
 				4164BA7E630DF900A57A617F /* Debug */,
 				EB8AFA62D4730EBBBD6C7E99 /* Release */,
+				BA331814741CEE86B3213BDF /* ReleaseMAS */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -593,6 +748,7 @@
 			buildConfigurations = (
 				67CF93C3F2DDC08726A96F45 /* Debug */,
 				7FA5F86E506C57F8A1FCFA66 /* Release */,
+				5A35DA9E50CFE543B5D56835 /* ReleaseMAS */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

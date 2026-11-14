@@ -4,6 +4,7 @@ struct PopoverView: View {
     @ObservedObject var viewModel: PopoverSecretsViewModel
     @ObservedObject var lockState: VaultLockState
     @ObservedObject var handoffModel: HandoffAttentionModel
+    let onOpenVault: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -25,11 +26,19 @@ struct PopoverView: View {
     private var handoffsSection: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                Text("Pending handoffs")
+                Text("Handoffs")
                     .font(.headline)
+                Text("\(handoffModel.pendingHandoffs.count)")
+                    .font(.caption2.monospacedDigit())
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(.secondary.opacity(0.15), in: Capsule())
                 Spacer()
-                Button("Open") {
-                    handoffModel.openHandoffsInBrowser()
+                if !handoffModel.pendingHandoffs.isEmpty {
+                    Button("Review All…") {
+                        handoffModel.openHandoffsInBrowser()
+                    }
                 }
             }
             if let error = handoffModel.lastError {
@@ -70,19 +79,38 @@ struct PopoverView: View {
                 .foregroundStyle(.secondary)
             Text("Vault is locked")
                 .font(.headline)
+            Text(
+                lockState.canUseDeviceOwnerAuthentication
+                    ? "Unlock with Touch ID or your Mac password."
+                    : "Unlock with your Mac password."
+            )
+            .font(.caption)
+            .foregroundStyle(.secondary)
+            .multilineTextAlignment(.center)
             if lockState.isUnlocking {
-                ProgressView()
+                HStack(spacing: 8) {
+                    ProgressView()
+                        .controlSize(.small)
+                    Text("Unlocking…")
+                        .font(.subheadline.weight(.medium))
+                }
+                .foregroundStyle(BrainBreakingTheme.muted)
+                .frame(minWidth: 140, minHeight: 32)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("Unlocking vault")
             } else {
-                Button("Unlock") {
+                Button {
                     Task { await lockState.unlock() }
+                } label: {
+                    Label("Unlock Vault", systemImage: "lock.open.fill")
+                        .font(.subheadline.weight(.semibold))
+                        .frame(minWidth: 120)
                 }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .tint(BrainBreakingTheme.accent)
                 .keyboardShortcut(.defaultAction)
-                if !lockState.canUseDeviceOwnerAuthentication {
-                    Text("Device password will be requested if biometry is unavailable.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                }
+                .accessibilityHint("Authenticates with Touch ID or your Mac password")
             }
             if let unlockError = lockState.unlockError {
                 Text(unlockError)
@@ -119,18 +147,56 @@ struct PopoverView: View {
                 Text(item.name)
                     .lineLimit(1)
                 Spacer()
-                if viewModel.copiedSecretID == item.id {
-                    Text("Copied")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                Button("Copy") {
+                Button {
                     Task { await viewModel.copySecret(id: item.id) }
+                } label: {
+                    Label(
+                        viewModel.copiedSecretID == item.id ? "Copied" : "Copy",
+                        systemImage: viewModel.copiedSecretID == item.id
+                            ? "checkmark.circle.fill"
+                            : "doc.on.doc"
+                    )
+                    .font(.caption.weight(.medium))
+                    .frame(minWidth: 58)
                 }
+                .buttonStyle(.bordered)
+                .controlSize(.small)
+                .tint(
+                    viewModel.copiedSecretID == item.id
+                        ? Color.green
+                        : BrainBreakingTheme.sand
+                )
                 .disabled(viewModel.isLoading)
+                .accessibilityLabel(
+                    viewModel.copiedSecretID == item.id
+                        ? "Secret copied"
+                        : "Copy \(item.name)"
+                )
             }
         }
         .listStyle(.plain)
         .frame(minWidth: 280, minHeight: 160, maxHeight: 320)
+
+        HStack {
+            Button {
+                onOpenVault()
+            } label: {
+                Label("Open in Window", systemImage: "macwindow")
+                    .font(.subheadline.weight(.semibold))
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.regular)
+            .tint(BrainBreakingTheme.accent)
+            .accessibilityHint("Opens the vault in a larger window")
+            Spacer()
+            Button("Lock Vault", systemImage: "lock.fill") {
+                lockState.lock()
+                viewModel.clearLoadedSecrets()
+            }
+            .buttonStyle(.bordered)
+            .controlSize(.regular)
+            .tint(BrainBreakingTheme.muted)
+            .accessibilityHint("Immediately locks access to secrets")
+        }
     }
 }

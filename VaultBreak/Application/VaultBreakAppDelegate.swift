@@ -9,7 +9,7 @@ final class VaultBreakAppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
         Task { @MainActor in
-            LoginItemService.applyOnFirstLaunch()
+            LoginItemService.applyConsentMigrationIfNeeded()
         }
     }
 

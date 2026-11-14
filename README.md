@@ -25,6 +25,25 @@ Or from the command line:
 xcodebuild -scheme VaultBreak -destination 'platform=macOS' build
 ```
 
+## App Store preflight
+
+Run the repeatable submission suite before uploading a Mac App Store build:
+
+```bash
+make preflight
+```
+
+The preflight runs the macOS tests, creates an unsigned `ReleaseMAS` archive,
+validates the sandbox and App Store build settings, and smoke-tests production
+authentication and account-protection endpoints. It requires Sign in with Apple
+to be advertised by production. During setup only, use
+`REQUIRE_APPLE_SIGN_IN=0 make preflight` to report Apple as a warning instead.
+
+The **App Store Preflight** GitHub Actions workflow provides the same suite as a
+manual workflow dispatch. macOS logout/login, biometric prompts, third-party
+credential entry, and permanent deletion of a disposable account remain manual
+security gates.
+
 ## Distribution
 
 Prebuilt binaries are published on [GitHub Releases](https://github.com/BrainBreaking/VaultBreak-macOS/releases/latest) when available. Until the first notarized asset is uploaded, build from source or follow [docs/signing-and-notarization.md](docs/signing-and-notarization.md) to produce a signed `.dmg`/`.zip`.

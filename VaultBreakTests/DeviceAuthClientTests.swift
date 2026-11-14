@@ -117,6 +117,11 @@ final class DeviceAuthClientTests: XCTestCase {
             XCTAssertEqual(request.httpMethod, "POST")
             XCTAssertEqual(request.url?.absoluteString, "https://vault.example.com/api/v1/device/code")
             XCTAssertEqual(request.value(forHTTPHeaderField: "Accept"), "application/json")
+            XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/json")
+            let body = bodyData(request).flatMap {
+                try? JSONSerialization.jsonObject(with: $0) as? [String: String]
+            }
+            XCTAssertEqual(body?["client"], "macos")
             return jsonResponse(request, status: 200, codeJSON)
         }
         let (client, _) = makeClient()
