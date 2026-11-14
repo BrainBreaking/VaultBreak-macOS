@@ -36,6 +36,7 @@ targets:
         ReleaseMAS:
           CODE_SIGN_ENTITLEMENTS: VaultBreak/VaultBreakMAS.entitlements
           ENABLE_APP_SANDBOX: YES
+          ENABLE_HARDENED_RUNTIME: YES
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) APP_STORE"
   VaultBreakTests:
     type: bundle.unit-test
